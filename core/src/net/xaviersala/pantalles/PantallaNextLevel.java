@@ -25,31 +25,34 @@ public class PantallaNextLevel extends Stage implements Screen {
 
 
   final PrincesetaGame joc;
-  final Marcador marcador;
+  private Marcador marcador;
 
-  private final Texture fons;
-  private final Texture restart;
-  private final Sound bravo;
+  private Texture fons;
+  private Texture restart;
+  private Sound bravo;
 
   Level nivell;
 
-  public PantallaNextLevel(PrincesetaGame app, Marcador marcador) {
+  public PantallaNextLevel(PrincesetaGame app) {
     super(new StretchViewport(PrincesetaGame.AMPLEPANTALLA, PrincesetaGame.ALTPANTALLA, new OrthographicCamera()));
     joc = app;
-    this.marcador = marcador;
 
+  }
+
+  public void iniciarLevel(Marcador marcador) {
+    this.marcador = marcador;
     nivell = new Level(marcador.getMorts() / Level.CANVI_LEVEL);
+    crearPantalla();
+    Gdx.app.log("Pantalla", "Entrant a Game Next Level, level=" + marcador.getMorts() / Level.CANVI_LEVEL);
+
+  }
+
+  private void crearPantalla() {
 
     fons = joc.manager.get("fons.png", Texture.class);
     restart = joc.manager.get("comensar.png", Texture.class);
     bravo = joc.manager.get("bravo.wav", Sound.class);
 
-    crearPantalla();
-    Gdx.app.log("Pantalla", "Entrant a Game Next Level, level=" + marcador.getMorts() / Level.CANVI_LEVEL);
-  }
-
-
-  private void crearPantalla() {
 
     bravo.play();
     final List<String> enemics = nivell.obtenirEnemics();
@@ -77,8 +80,10 @@ public class PantallaNextLevel extends Stage implements Screen {
           public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
             botoStart.addAction(Actions.scaleTo(1f, 1f, .1f));
 
-            joc.setScreen(new PantallaJoc(joc, marcador, enemics, nivell.obtenirTots()));
             Gdx.input.setInputProcessor(null);
+            joc.pantallaJoc.inicialitza(marcador, nivell);
+            joc.setScreen(joc.pantallaJoc);
+
           }
 
         });

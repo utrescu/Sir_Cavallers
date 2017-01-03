@@ -27,20 +27,19 @@ public class PantallaJoc implements Screen {
   OrthographicCamera camera;
   private Rectangle pantalla;
 
-  List<Cavaller> cavallers;
+  private List<Cavaller> cavallers;
+  private List<String> enemics;
+  private List<String> imatgesCavallers;
 
-  final List<String> enemics;
-  final List<String> imatgesCavallers;
-
-  final Sound dispara;
-  final Sound tocat;
-  final Sound noTocat;
+  private Sound dispara;
+  private Sound tocat;
+  private Sound noTocat;
 
   Marcador marcador;
 
-  private final int numCavallers;
+  private int numCavallers;
 
-  public PantallaJoc(PrincesetaGame app, Marcador marcador, final List<String> enemics, final List<String> imatges) {
+  public PantallaJoc(PrincesetaGame app) {
     this.joc = app;
 
     camera = new OrthographicCamera();
@@ -48,22 +47,16 @@ public class PantallaJoc implements Screen {
     camera.setToOrtho(false, pantalla.getWidth(), pantalla.getHeight());
 
     cavallers = new ArrayList<Cavaller>();
-    this.marcador = marcador;
-
-    this.enemics = enemics;
-    imatgesCavallers = imatges;
-    numCavallers = imatgesCavallers.size();
-
-    dispara = joc.manager.get("dispara.wav",Sound.class);
-    tocat = joc.manager.get("tocat.wav",Sound.class);
-    noTocat = joc.manager.get("tocat-no.wav",Sound.class);
+    this.marcador = new Marcador();
 
   }
 
 
   @Override
   public void show() {
-    // Show
+    dispara = joc.manager.get("dispara.wav",Sound.class);
+    tocat = joc.manager.get("tocat.wav",Sound.class);
+    noTocat = joc.manager.get("tocat-no.wav",Sound.class);
   }
 
 
@@ -108,7 +101,8 @@ public class PantallaJoc implements Screen {
       tocat.play();
       marcador.addMort();
       if ((marcador.getMorts() % Level.CANVI_LEVEL) == 0) {
-        joc.setScreen(new PantallaNextLevel(joc, marcador));
+        joc.pantallaNext.iniciarLevel(marcador);
+        joc.setScreen(joc.pantallaNext);
       }
     } else {
       noTocat.play();
@@ -120,7 +114,8 @@ public class PantallaJoc implements Screen {
 
   private void comprovaSiSAcaba() {
     if (marcador.fallades() == 10) {
-      joc.setScreen(new PantallaGameOver(joc, marcador));
+      joc.pantallaGameOver.setMarcador(marcador);
+      joc.setScreen(joc.pantallaGameOver);
     }
   }
 
@@ -205,6 +200,15 @@ public class PantallaJoc implements Screen {
 
   @Override
   public void dispose() {
+    cavallers.clear();
+  }
+
+
+  public void inicialitza(Marcador marcador2, Level nivell) {
+    marcador = marcador2;
+    this.enemics = nivell.obtenirEnemics();
+    imatgesCavallers = nivell.obtenirTots();
+    numCavallers = imatgesCavallers.size();
     cavallers.clear();
   }
 

@@ -24,26 +24,20 @@ public class PantallaMenu extends Stage implements Screen {
 
   final PrincesetaGame joc;
 
-  private final Texture fons;
-  private final Texture start;
+  private Texture fons;
+  private Texture start;
 
   public PantallaMenu(PrincesetaGame app) {
 
     super(new StretchViewport(PrincesetaGame.AMPLEPANTALLA, PrincesetaGame.ALTPANTALLA, new OrthographicCamera()));
     joc = app;
 
-
-    fons = joc.manager.get("fons.png", Texture.class);
-    start = joc.manager.get("comensar.png", Texture.class);
-
-    crearMenu();
-
-    Gdx.app.log("Pantalla", "Entrant a Game Menu, level=0");
   }
 
   private void crearMenu() {
 
-
+    fons = joc.manager.get("fons.png", Texture.class);
+    start = joc.manager.get("comensar.png", Texture.class);
 
     final Level nivell = new Level(0);
     final List<String> enemics = nivell.obtenirEnemics();
@@ -71,8 +65,12 @@ public class PantallaMenu extends Stage implements Screen {
           public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
             botoStart.addAction(Actions.scaleTo(1f, 1f, .1f));
 
-            joc.setScreen(new PantallaJoc(joc, new Marcador(), enemics, nivell.obtenirTots()));
+            // joc.setScreen(new PantallaJoc(joc, new Marcador(), enemics, nivell.obtenirTots()));
+
+
+            joc.pantallaJoc.inicialitza(new Marcador(), nivell);
             Gdx.input.setInputProcessor(null);
+            joc.setScreen(joc.pantallaJoc);
           }
 
         });
@@ -101,7 +99,9 @@ public class PantallaMenu extends Stage implements Screen {
 
   @Override
   public void show() {
+    Gdx.app.log("Pantalla", "Entrant a Game Menu, level=0");
     Gdx.input.setInputProcessor(this);
+    crearMenu();
 
   }
 

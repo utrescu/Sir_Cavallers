@@ -8,6 +8,10 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 
+import net.xaviersala.pantalles.PantallaGameOver;
+import net.xaviersala.pantalles.PantallaJoc;
+import net.xaviersala.pantalles.PantallaMenu;
+import net.xaviersala.pantalles.PantallaNextLevel;
 import net.xaviersala.pantalles.PantallaSplash;
 
 public class PrincesetaGame extends Game {
@@ -20,6 +24,11 @@ public class PrincesetaGame extends Game {
   public AssetManager manager;
   public Skin skin;
 
+  public PantallaMenu pantallaMenu;
+  public PantallaNextLevel pantallaNext;
+  public PantallaJoc pantallaJoc;
+  public PantallaGameOver pantallaGameOver;
+
   Texture img;
 
   @Override
@@ -28,6 +37,13 @@ public class PrincesetaGame extends Game {
     font = new BitmapFont();
     manager = new AssetManager();
     skin = new Skin(Gdx.files.internal("skin.json"));
+
+    pantallaMenu = new PantallaMenu(this);
+    pantallaNext = new PantallaNextLevel(this);
+    pantallaGameOver = new PantallaGameOver(this);
+    pantallaJoc = new PantallaJoc(this);
+
+
     this.setScreen(new PantallaSplash(this));
   }
 
@@ -41,4 +57,6 @@ public class PrincesetaGame extends Game {
     batch.dispose();
     font.dispose();
   }
+
+
 }

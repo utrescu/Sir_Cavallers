@@ -83,7 +83,7 @@ public class PantallaSplash extends Stage implements Screen {
   }
 
   private void comensarPartida() {
-    joc.setScreen(new PantallaMenu(joc));
+    joc.setScreen(joc.pantallaMenu); // PantallaMenu(joc));
   }
 
   @Override

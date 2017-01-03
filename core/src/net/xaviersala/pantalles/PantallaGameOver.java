@@ -21,28 +21,28 @@ import net.xaviersala.personatges.Marcador;
 public class PantallaGameOver extends Stage implements Screen {
 
   final PrincesetaGame joc;
-  final Marcador marcador;
+  private Marcador marcador;
 
-  private final Texture fons;
-  private final Texture restart;
-  private final Sound plora;
+  private Texture fons;
+  private Texture restart;
+  private Sound plora;
 
-  public PantallaGameOver(PrincesetaGame app, Marcador marcador) {
+  public PantallaGameOver(PrincesetaGame app) {
 
     super(new StretchViewport(PrincesetaGame.AMPLEPANTALLA, PrincesetaGame.ALTPANTALLA, new OrthographicCamera()));
     this.joc = app;
-    this.marcador = marcador;
+    this.marcador = new Marcador();
+
+
+
+  }
+
+  private void crearPantalla() {
 
     fons = joc.manager.get("preso.png", Texture.class);
     restart = joc.manager.get("comensar.png", Texture.class);
     plora = joc.manager.get("sad.wav", Sound.class);
 
-    crearPantalla();
-    Gdx.app.log("Pantalla", "Entrant a Game Over");
-
-  }
-
-  private void crearPantalla() {
     plora.play();
 
     Image bg = new Image(fons);
@@ -70,8 +70,9 @@ public class PantallaGameOver extends Stage implements Screen {
       @Override
       public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
         botoRestart.addAction(Actions.scaleTo(1f, 1f, .1f));
-        joc.setScreen(new PantallaMenu(joc));
         Gdx.input.setInputProcessor(null);
+        joc.setScreen(joc.pantallaMenu);
+
       }
     });
 
@@ -84,8 +85,9 @@ public class PantallaGameOver extends Stage implements Screen {
 
   @Override
   public void show() {
+    Gdx.app.log("Pantalla", "Entrant a Game Over");
     Gdx.input.setInputProcessor(this);
-
+    crearPantalla();
   }
 
   @Override
@@ -118,13 +120,16 @@ public class PantallaGameOver extends Stage implements Screen {
 
   @Override
   public void hide() {
-    // Hide?
 
   }
 
   @Override
   public void dispose() {
     super.dispose();
+  }
+
+  public void setMarcador(Marcador marcador2) {
+    marcador = marcador2;
   }
 
 }
