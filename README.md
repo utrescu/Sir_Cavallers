@@ -1,5 +1,5 @@
 # Sir_Cavallers
-Un joc senzill per provar les possibilitats que dóna LibGDX per desenvolupar programes en multiplataforma: Android, Desktop en Java, i HTML5
+Un joc senzill per provar les possibilitats que dóna LibGDX per desenvolupar programes en multiplataforma: Android, Desktop en Java, i HTML5 (també es pot fer que funcionin en IPhones©  i IPads© però jo ho ignoro)
 
 Es tracta d'eliminar els cavallers del color especificat clicant (o prement-hi a sobre)
 
