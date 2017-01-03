@@ -4,8 +4,6 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import com.badlogic.gdx.math.MathUtils;
-
 public class Level {
 
   List<String> enemics;

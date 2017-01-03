@@ -40,11 +40,10 @@ public class PantallaNextLevel extends Stage implements Screen {
   }
 
   public void iniciarLevel(Marcador marcador) {
+    Gdx.app.log("Pantalla", "Entrant a Game Next Level, level=" + marcador.getMorts() / Level.CANVI_LEVEL);
     this.marcador = marcador;
     nivell = new Level(marcador.getMorts() / Level.CANVI_LEVEL);
     crearPantalla();
-    Gdx.app.log("Pantalla", "Entrant a Game Next Level, level=" + marcador.getMorts() / Level.CANVI_LEVEL);
-
   }
 
   private void crearPantalla() {

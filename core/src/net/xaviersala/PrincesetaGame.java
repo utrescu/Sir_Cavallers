@@ -43,7 +43,6 @@ public class PrincesetaGame extends Game {
     pantallaGameOver = new PantallaGameOver(this);
     pantallaJoc = new PantallaJoc(this);
 
-
     this.setScreen(new PantallaSplash(this));
   }
 
@@ -56,6 +55,7 @@ public class PrincesetaGame extends Game {
   public void dispose () {
     batch.dispose();
     font.dispose();
+    manager.clear();
   }
 
 

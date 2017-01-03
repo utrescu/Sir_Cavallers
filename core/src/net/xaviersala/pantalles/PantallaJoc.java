@@ -6,6 +6,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
@@ -36,8 +37,11 @@ public class PantallaJoc implements Screen {
   private Sound noTocat;
 
   Marcador marcador;
+  Preferences preferencies;
 
   private int numCavallers;
+
+  private int record;
 
   public PantallaJoc(PrincesetaGame app) {
     this.joc = app;
@@ -48,6 +52,7 @@ public class PantallaJoc implements Screen {
 
     cavallers = new ArrayList<Cavaller>();
     this.marcador = new Marcador();
+    preferencies = Gdx.app.getPreferences("sirCavallers");
 
   }
 
@@ -75,7 +80,9 @@ public class PantallaJoc implements Screen {
     for (Cavaller cavaller: cavallers) {
       cavaller.pinta(joc.batch);
     }
-    joc.font.draw(joc.batch, marcador.getText(), 100, PrincesetaGame.ALTPANTALLA);
+
+
+    joc.font.draw(joc.batch, marcador.getText() + " - Record:" + record, 100, PrincesetaGame.ALTPANTALLA);
     joc.batch.end();
 
 
@@ -209,6 +216,7 @@ public class PantallaJoc implements Screen {
     this.enemics = nivell.obtenirEnemics();
     imatgesCavallers = nivell.obtenirTots();
     numCavallers = imatgesCavallers.size();
+    record = preferencies.getInteger("record",0);
     cavallers.clear();
   }
 

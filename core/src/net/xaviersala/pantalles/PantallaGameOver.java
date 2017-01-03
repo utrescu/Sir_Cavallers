@@ -1,6 +1,7 @@
 package net.xaviersala.pantalles;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
@@ -22,19 +23,19 @@ public class PantallaGameOver extends Stage implements Screen {
 
   final PrincesetaGame joc;
   private Marcador marcador;
+  Preferences preferencies;
 
   private Texture fons;
   private Texture restart;
   private Sound plora;
+
 
   public PantallaGameOver(PrincesetaGame app) {
 
     super(new StretchViewport(PrincesetaGame.AMPLEPANTALLA, PrincesetaGame.ALTPANTALLA, new OrthographicCamera()));
     this.joc = app;
     this.marcador = new Marcador();
-
-
-
+    preferencies = Gdx.app.getPreferences("sirCavallers");
   }
 
   private void crearPantalla() {
@@ -114,7 +115,7 @@ public class PantallaGameOver extends Stage implements Screen {
 
   @Override
   public void resume() {
-    // Resume?
+
 
   }
 
@@ -130,6 +131,11 @@ public class PantallaGameOver extends Stage implements Screen {
 
   public void setMarcador(Marcador marcador2) {
     marcador = marcador2;
+    int record = preferencies.getInteger("record",0);
+    if (marcador.getMorts() > record) {
+      preferencies.putInteger("record", marcador.getMorts());
+      preferencies.flush();
+    }
   }
 
 }
