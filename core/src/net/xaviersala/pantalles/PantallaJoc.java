@@ -16,6 +16,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.utils.I18NBundle;
 
 import net.xaviersala.PrincesetaGame;
 import net.xaviersala.personatges.Cavaller;
@@ -38,6 +39,7 @@ public class PantallaJoc implements Screen {
   private Sound dispara;
   private Sound tocat;
   private Sound noTocat;
+  private I18NBundle texte;
 
   Marcador marcador;
   Preferences preferencies;
@@ -66,6 +68,7 @@ public class PantallaJoc implements Screen {
     dispara = joc.manager.get("dispara.wav",Sound.class);
     tocat = joc.manager.get("foc.wav",Sound.class);
     noTocat = joc.manager.get("tocat-no.wav",Sound.class);
+    texte = joc.manager.get("i18n/sir", I18NBundle.class);
   }
 
 
@@ -90,8 +93,9 @@ public class PantallaJoc implements Screen {
       foc.pinta(joc.batch);
     }
 
-
-    joc.font.draw(joc.batch, marcador.getText() + " - Record:" + record, 100, PrincesetaGame.ALTPANTALLA);
+    CharSequence resultat = texte.format("marcador", marcador.getMorts(), marcador.getEscapats(),
+        marcador.getErrors(), record);
+    joc.font.draw(joc.batch, resultat, 100, PrincesetaGame.ALTPANTALLA);
     joc.batch.end();
 
 

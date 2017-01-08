@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.utils.I18NBundle;
 import com.badlogic.gdx.utils.Timer;
 import com.badlogic.gdx.utils.Timer.Task;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
@@ -50,6 +51,8 @@ public class PantallaSplash extends Stage implements Screen {
     }
 
     joc.manager.load("foc.party", ParticleEffect.class);
+
+    joc.manager.load("i18n/sir", I18NBundle.class);
 
     joc.manager.finishLoading();
 
