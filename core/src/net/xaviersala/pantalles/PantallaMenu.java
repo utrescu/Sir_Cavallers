@@ -51,9 +51,7 @@ public class PantallaMenu extends Stage implements Screen {
 
     Table taulaBotons  = new Table();
 
-    TextButton botoStart = new TextButton("Jugar!", joc.skin);
-
-    // final Image botoStart = new Image(start);
+    final TextButton botoStart = new TextButton("Jugar!", joc.skin);
     botoStart.addListener(
         new InputListener() {
 
@@ -74,7 +72,7 @@ public class PantallaMenu extends Stage implements Screen {
 
         });
 
-    TextButton botoSortir = new TextButton(texte.get("sortir"), joc.skin);
+    final TextButton botoSortir = new TextButton(texte.get("sortir"), joc.skin);
     botoSortir.addListener(
         new InputListener() {
 

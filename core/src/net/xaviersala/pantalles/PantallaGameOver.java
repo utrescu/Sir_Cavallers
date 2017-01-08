@@ -59,7 +59,7 @@ public class PantallaGameOver extends Stage implements Screen {
     taulaBase.add(resultat);
     taulaBase.row().height(100);
 
-    TextButton botoStart = new TextButton(texte.get("jugar"), joc.skin);
+    final TextButton botoStart = new TextButton(texte.get("jugar"), joc.skin);
     botoStart.addListener(new InputListener() {
 
       @Override
@@ -78,7 +78,7 @@ public class PantallaGameOver extends Stage implements Screen {
 
     });
 
-    TextButton botoSortir = new TextButton(texte.get("sortir"), joc.skin);
+    final TextButton botoSortir = new TextButton(texte.get("sortir"), joc.skin);
     botoSortir.addListener(new InputListener() {
 
       @Override

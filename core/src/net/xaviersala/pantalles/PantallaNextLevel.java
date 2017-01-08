@@ -63,7 +63,7 @@ public class PantallaNextLevel extends Stage implements Screen {
 
     Table taulaBotons  = new Table();
 
-    TextButton botoStart = new TextButton(texte.get("continuar"), joc.skin);
+    final TextButton botoStart = new TextButton(texte.get("continuar"), joc.skin);
     botoStart.addListener(
         new InputListener() {
 
