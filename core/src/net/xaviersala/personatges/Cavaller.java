@@ -41,7 +41,6 @@ public class Cavaller implements Comparable<Cavaller> {
       angle = 180;
     } else {
       angle = 0;
-      // this.imatge.flip(true, false);
     }
 
     this.imatge.setOriginCenter();

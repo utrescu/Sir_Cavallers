@@ -13,6 +13,8 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.utils.I18NBundle;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 
 import net.xaviersala.PrincesetaGame;
@@ -43,9 +45,9 @@ public class PantallaNextLevel extends Stage implements Screen {
   private void crearPantalla() {
 
     Texture fons = joc.manager.get("fons.png", Texture.class);
-    Texture continua = joc.manager.get("continuar.png", Texture.class);
     Texture victoria = joc.manager.get("victoria.png",Texture.class);
     Sound bravo = joc.manager.get("bravo.wav", Sound.class);
+    I18NBundle texte = joc.manager.get("sir", I18NBundle.class);
 
 
     bravo.play();
@@ -61,7 +63,7 @@ public class PantallaNextLevel extends Stage implements Screen {
 
     Table taulaBotons  = new Table();
 
-    final Image botoStart = new Image(continua);
+    final TextButton botoStart = new TextButton(texte.get("continuar"), joc.skin);
     botoStart.addListener(
         new InputListener() {
 
@@ -84,17 +86,17 @@ public class PantallaNextLevel extends Stage implements Screen {
         });
 
     taulaBotons.row().colspan(2);
-    Label labelNivell = new Label("Nivell " + nivell.getNumLevel() + " :" , joc.skin);
+    Label labelNivell = new Label(texte.format("nivell", nivell.getNumLevel()), joc.skin);
     taulaBotons.add(labelNivell);
 
     taulaBotons.row().colspan(2);
-    Label resultat = new Label("Mata els enemics de color:", joc.skin);
+    Label resultat = new Label(texte.get("objectiu"), joc.skin);
     taulaBotons.add(resultat);
     taulaBotons.row().height(100);
 
     int i=0;
     for(String quin: nivell.obtenirEnemics()) {
-      Label resultat2 = new Label(quin, joc.skin, "title-"+quin);
+      Label resultat2 = new Label(texte.get(quin), joc.skin, "title-"+quin);
       taulaBotons.add(resultat2);
       i++;
       if (i%2==0) {

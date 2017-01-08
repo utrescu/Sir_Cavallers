@@ -32,12 +32,18 @@ public class Marcador {
     return errors + escapats;
   }
 
-  public String getText() {
-    return "Morts: " + morts + " Escapats:" + escapats + " Errors: " + errors;
+  /**
+   * @return the escapats
+   */
+  public int getEscapats() {
+    return escapats;
   }
 
-  public CharSequence getResultat() {
-    return "Has matat " + morts + " enemics";
+  /**
+   * @return the errors
+   */
+  public int getErrors() {
+    return errors;
   }
 
   public int getMorts() {

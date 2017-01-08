@@ -12,6 +12,8 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.utils.I18NBundle;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 
 import net.xaviersala.PrincesetaGame;
@@ -32,9 +34,8 @@ public class PantallaMenu extends Stage implements Screen {
   private void crearMenu() {
 
     Texture fons = joc.manager.get("fons.png", Texture.class);
-    Texture start = joc.manager.get("comensar.png", Texture.class);
-    Texture sortir = joc.manager.get("sortir.png", Texture.class);
     Texture drac = joc.manager.get("drac.png", Texture.class);
+    I18NBundle texte = joc.manager.get("sir", I18NBundle.class);
 
     final Level nivell = new Level(0);
 
@@ -50,7 +51,7 @@ public class PantallaMenu extends Stage implements Screen {
 
     Table taulaBotons  = new Table();
 
-    final Image botoStart = new Image(start);
+    final TextButton botoStart = new TextButton("Jugar!", joc.skin);
     botoStart.addListener(
         new InputListener() {
 
@@ -71,7 +72,7 @@ public class PantallaMenu extends Stage implements Screen {
 
         });
 
-    final Image botoSortir = new Image(sortir);
+    final TextButton botoSortir = new TextButton(texte.get("sortir"), joc.skin);
     botoSortir.addListener(
         new InputListener() {
 
@@ -94,13 +95,13 @@ public class PantallaMenu extends Stage implements Screen {
     );
 
     taulaBotons.row().colspan(2);
-    Label resultat = new Label("Mata els enemics de color:", joc.skin);
+    Label resultat = new Label(texte.get("objectiu"), joc.skin);
     taulaBotons.add(resultat);
     taulaBotons.row().height(100);
 
     int i=0;
     for(String quin: nivell.obtenirEnemics()) {
-      Label resultat2 = new Label(quin, joc.skin, "title-"+quin);
+      Label resultat2 = new Label(texte.get(quin), joc.skin, "title-"+quin);
       taulaBotons.add(resultat2);
       i++;
       if (i%2==0) {
