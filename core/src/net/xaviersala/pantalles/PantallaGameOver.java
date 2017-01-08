@@ -40,7 +40,7 @@ public class PantallaGameOver extends Stage implements Screen {
     Texture derrota = joc.manager.get("derrota.png", Texture.class);
     Texture fons = joc.manager.get("fons.png", Texture.class);
     Sound plora = joc.manager.get("sad.wav", Sound.class);
-    I18NBundle texte = joc.manager.get("i18n/sir", I18NBundle.class);
+    I18NBundle texte = joc.manager.get("sir", I18NBundle.class);
 
     plora.play();
 

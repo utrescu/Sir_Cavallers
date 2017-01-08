@@ -51,7 +51,7 @@ public class PantallaSplash extends Stage implements Screen {
 
     joc.manager.load("foc.party", ParticleEffect.class);
 
-    joc.manager.load("i18n/sir", I18NBundle.class);
+    joc.manager.load("sir", I18NBundle.class);
 
     joc.manager.finishLoading();
 

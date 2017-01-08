@@ -68,7 +68,7 @@ public class PantallaJoc implements Screen {
     dispara = joc.manager.get("dispara.wav",Sound.class);
     tocat = joc.manager.get("foc.wav",Sound.class);
     noTocat = joc.manager.get("tocat-no.wav",Sound.class);
-    texte = joc.manager.get("i18n/sir", I18NBundle.class);
+    texte = joc.manager.get("sir", I18NBundle.class);
   }
 
 

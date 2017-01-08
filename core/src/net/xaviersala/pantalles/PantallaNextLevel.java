@@ -47,7 +47,7 @@ public class PantallaNextLevel extends Stage implements Screen {
     Texture fons = joc.manager.get("fons.png", Texture.class);
     Texture victoria = joc.manager.get("victoria.png",Texture.class);
     Sound bravo = joc.manager.get("bravo.wav", Sound.class);
-    I18NBundle texte = joc.manager.get("i18n/sir", I18NBundle.class);
+    I18NBundle texte = joc.manager.get("sir", I18NBundle.class);
 
 
     bravo.play();

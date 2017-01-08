@@ -35,7 +35,7 @@ public class PantallaMenu extends Stage implements Screen {
 
     Texture fons = joc.manager.get("fons.png", Texture.class);
     Texture drac = joc.manager.get("drac.png", Texture.class);
-    I18NBundle texte = joc.manager.get("i18n/sir", I18NBundle.class);
+    I18NBundle texte = joc.manager.get("sir", I18NBundle.class);
 
     final Level nivell = new Level(0);
 

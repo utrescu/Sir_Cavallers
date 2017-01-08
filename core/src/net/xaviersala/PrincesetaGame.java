@@ -29,7 +29,6 @@ public class PrincesetaGame extends Game {
   public PantallaNextLevel pantallaNext;
   public PantallaJoc pantallaJoc;
   public PantallaGameOver pantallaGameOver;
-  public TextureAtlas atlas;
 
   Texture img;
 
@@ -38,7 +37,6 @@ public class PrincesetaGame extends Game {
     batch = new SpriteBatch();
     font = new BitmapFont();
     manager = new AssetManager();
-    // skin = new Skin(Gdx.files.internal("skin.json"));
 
     manager.load("botons.atlas", TextureAtlas.class);
     manager.finishLoading();
