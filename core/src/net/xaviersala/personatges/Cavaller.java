@@ -11,10 +11,13 @@ public class Cavaller implements Comparable<Cavaller> {
 
   int velocitat;
   float alpha;
-  boolean esMort;
+
   String tipusCavaller;
 
   private float angle;
+
+  boolean esMort;
+  private boolean remove;
 
   public Cavaller(Texture imatge, String tipusCavaller, float x, float y) {
 
@@ -36,11 +39,27 @@ public class Cavaller implements Comparable<Cavaller> {
     this.imatge.setOriginCenter();
 
     esMort = false;
+    remove = false;
 
+  }
+
+  /**
+   * @return the remove
+   */
+  public boolean isRemove() {
+    return remove;
   }
 
   public Rectangle getPosicio() {
     return imatge.getBoundingRectangle();
+  }
+
+  public int getCentreX() {
+    return (int) (imatge.getBoundingRectangle().x + imatge.getBoundingRectangle().width * 0.5);
+  }
+
+  public int getCentreY() {
+    return (int) (imatge.getBoundingRectangle().y + imatge.getBoundingRectangle().height * 0.5);
   }
 
   public void mou(float delta) {
@@ -50,18 +69,17 @@ public class Cavaller implements Comparable<Cavaller> {
   }
 
   public void pinta(SpriteBatch batch) {
-    // batch.draw(imatge, posicio.x, posicio.y);
     if (esMort) {
       alpha -= 0.02f;
-      if (alpha < 0) {
+      if (alpha > 0) {
         alpha = 0f;
+        remove = true;
       }
     }
     imatge.draw(batch, alpha);
   }
 
   public boolean isMort() {
-    // return (esMort && alpha == 0f);
     return esMort;
   }
 
@@ -85,5 +103,6 @@ public class Cavaller implements Comparable<Cavaller> {
   public int compareTo(Cavaller o) {
     return (int) (o.getPosicio().y - getPosicio().y);
   }
+
 
 }

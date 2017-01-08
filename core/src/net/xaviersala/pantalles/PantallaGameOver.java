@@ -25,11 +25,6 @@ public class PantallaGameOver extends Stage implements Screen {
   private Marcador marcador;
   Preferences preferencies;
 
-  private Texture fons;
-  private Texture restart;
-  private Sound plora;
-
-
   public PantallaGameOver(PrincesetaGame app) {
 
     super(new StretchViewport(PrincesetaGame.AMPLEPANTALLA, PrincesetaGame.ALTPANTALLA, new OrthographicCamera()));
@@ -40,9 +35,11 @@ public class PantallaGameOver extends Stage implements Screen {
 
   private void crearPantalla() {
 
-    fons = joc.manager.get("preso.png", Texture.class);
-    restart = joc.manager.get("comensar.png", Texture.class);
-    plora = joc.manager.get("sad.wav", Sound.class);
+    Texture derrota = joc.manager.get("derrota.png", Texture.class);
+    Texture fons = joc.manager.get("fons.png", Texture.class);
+    Texture restart = joc.manager.get("comensar.png", Texture.class);
+    Texture sortir = joc.manager.get("sortir.png", Texture.class);
+    Sound plora = joc.manager.get("sad.wav", Sound.class);
 
     plora.play();
 
@@ -50,37 +47,67 @@ public class PantallaGameOver extends Stage implements Screen {
     bg.setFillParent(true);
     addActor(bg);
 
-    Table taula = new Table();
-    taula.center();
+    Table taulaBase = new Table().center().pad(10);
+
+    final Image derrotaImage = new Image(derrota);
+    taulaBase.add(derrotaImage).colspan(2);
+    taulaBase.setFillParent(true);
+
+    taulaBase.row().colspan(2);
     Label resultat = new Label(marcador.getResultat(), joc.skin);
-    taula.add(resultat);
-    taula.center();
-    taula.row();
+    taulaBase.add(resultat);
+    taulaBase.row().height(100);
 
-    taula.row();
-
-    final Image botoRestart = new Image(restart);
-    botoRestart.addListener(new InputListener() {
+    final Image botoStart = new Image(restart);
+    botoStart.addListener(new InputListener() {
 
       @Override
       public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-        botoRestart.addAction(Actions.scaleTo(1.1f, 1.1f, .1f));
+        botoStart.addAction(Actions.scaleTo(1.1f, 1.1f, .1f));
         return true;
       }
 
       @Override
       public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-        botoRestart.addAction(Actions.scaleTo(1f, 1f, .1f));
+        botoStart.addAction(Actions.scaleTo(1f, 1f, .1f));
+
         Gdx.input.setInputProcessor(null);
         joc.setScreen(joc.pantallaMenu);
-
       }
+
     });
 
-    taula.add(botoRestart);
-    taula.setBounds(0, 0, PrincesetaGame.AMPLEPANTALLA, PrincesetaGame.AMPLEPANTALLA / 3);
+    final Image botoSortir = new Image(sortir);
+    botoSortir.addListener(new InputListener() {
 
-    addActor(taula);
+      @Override
+      public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+        botoSortir.addAction(Actions.scaleTo(1.1f, 1.1f, .1f));
+        return true;
+      }
+
+      @Override
+      public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+        botoSortir.addAction(Actions.scaleTo(1f, 1f, .1f));
+
+        Gdx.input.setInputProcessor(null);
+        Gdx.app.exit();
+      }
+
+    }
+
+    );
+
+    // Record?
+
+    taulaBase.row();
+    taulaBase.center();
+    taulaBase.add(botoSortir).width(150).height(56);
+    taulaBase.add(botoStart).width(150).height(56);
+
+    addActor(taulaBase);
+
+    taulaBase.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
   }
 
@@ -109,29 +136,27 @@ public class PantallaGameOver extends Stage implements Screen {
 
   @Override
   public void pause() {
-    // Pause?
-
+    // En principi no cal guardar res. S'ha acabat la partida
   }
 
   @Override
   public void resume() {
-
-
+    // No cal restaurar res...
   }
 
   @Override
   public void hide() {
-
+    // He de guardar alguna cosa?
   }
 
-  @Override
-  public void dispose() {
-    super.dispose();
-  }
-
+  /**
+   * Posa el marcador a la pantalla GameOver.
+   *
+   * @param marcador2: marcador actual
+   */
   public void setMarcador(Marcador marcador2) {
     marcador = marcador2;
-    int record = preferencies.getInteger("record",0);
+    int record = preferencies.getInteger("record", 0);
     if (marcador.getMorts() > record) {
       preferencies.putInteger("record", marcador.getMorts());
       preferencies.flush();

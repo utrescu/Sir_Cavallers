@@ -6,6 +6,7 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.utils.Timer;
@@ -21,8 +22,9 @@ public class PantallaSplash extends Stage implements Screen {
   private boolean timerIsOn;
   private Texture splsh;
 
-  private static final String[] NOM_IMATGES = { "fons", "comensar", "mes", "preso" };
-  private static final String[] SONS = { "dispara", "tocat", "tocat-no", "bravo", "sad" };
+  private static final String[] NOM_IMATGES = { "comensar", "sortir", "continuar",
+      "fons", "drac", "victoria", "derrota" };
+  private static final String[] SONS = { "dispara", "foc", "tocat-no", "bravo", "sad" };
 
   public PantallaSplash(PrincesetaGame game) {
 
@@ -45,6 +47,9 @@ public class PantallaSplash extends Stage implements Screen {
     for(String so: SONS) {
       joc.manager.load(so + ".wav", Sound.class);
     }
+
+    joc.manager.load("foc.party", ParticleEffect.class);
+
     joc.manager.finishLoading();
 
 
@@ -83,7 +88,7 @@ public class PantallaSplash extends Stage implements Screen {
   }
 
   private void comensarPartida() {
-    joc.setScreen(joc.pantallaMenu); // PantallaMenu(joc));
+    joc.setScreen(joc.pantallaMenu);
   }
 
   @Override

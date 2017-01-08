@@ -12,12 +12,14 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
 
 import net.xaviersala.PrincesetaGame;
 import net.xaviersala.personatges.Cavaller;
+import net.xaviersala.personatges.Foc;
 import net.xaviersala.personatges.Level;
 import net.xaviersala.personatges.Marcador;
 
@@ -29,6 +31,7 @@ public class PantallaJoc implements Screen {
   private Rectangle pantalla;
 
   private List<Cavaller> cavallers;
+  private List<Foc> focs;
   private List<String> enemics;
   private List<String> imatgesCavallers;
 
@@ -51,6 +54,7 @@ public class PantallaJoc implements Screen {
     camera.setToOrtho(false, pantalla.getWidth(), pantalla.getHeight());
 
     cavallers = new ArrayList<Cavaller>();
+    focs = new ArrayList<Foc>();
     this.marcador = new Marcador();
     preferencies = Gdx.app.getPreferences("sirCavallers");
 
@@ -60,7 +64,7 @@ public class PantallaJoc implements Screen {
   @Override
   public void show() {
     dispara = joc.manager.get("dispara.wav",Sound.class);
-    tocat = joc.manager.get("tocat.wav",Sound.class);
+    tocat = joc.manager.get("foc.wav",Sound.class);
     noTocat = joc.manager.get("tocat-no.wav",Sound.class);
   }
 
@@ -72,6 +76,7 @@ public class PantallaJoc implements Screen {
 
     creaCavallers();
     moureCavallers(delta);
+    moureFocs(delta);
     camera.update();
     joc.batch.setProjectionMatrix(camera.combined);
 
@@ -79,6 +84,10 @@ public class PantallaJoc implements Screen {
 
     for (Cavaller cavaller: cavallers) {
       cavaller.pinta(joc.batch);
+    }
+
+    for(Foc foc: focs) {
+      foc.pinta(joc.batch);
     }
 
 
@@ -95,11 +104,27 @@ public class PantallaJoc implements Screen {
       for(int i=cavallers.size()-1; i>=0; i--) {
         if (cavallers.get(i).isTocat(touchPos.x, touchPos.y)) {
           cavallers.get(i).setMort(true);
+          int posX = cavallers.get(i).getCentreX();
+          int posY = cavallers.get(i).getCentreY();
+          focs.add(creaFoc(posX, posY));
           incrementaMarcador(cavallers.get(i).getTipusCavaller());
           break;
         }
       }
    }
+  }
+
+
+  private void moureFocs(float delta) {
+    Iterator<Foc> iter = focs.iterator();
+    while(iter.hasNext()) {
+      Foc foc = iter.next();
+      if (foc.isAcabat()) {
+        iter.remove();
+      } else {
+        foc.mou(delta);
+      }
+    }
   }
 
 
@@ -114,7 +139,6 @@ public class PantallaJoc implements Screen {
     } else {
       noTocat.play();
       marcador.addErrors();
-      comprovaSiSAcaba();
     }
   }
 
@@ -133,20 +157,23 @@ public class PantallaJoc implements Screen {
     while(iter.hasNext()) {
       Cavaller cavaller = iter.next();
       if (cavaller.isMort()) {
-        iter.remove();
+        if (cavaller.isRemove()) {
+          iter.remove();
+        }
       } else {
         cavaller.mou(delta);
         if (foraDePantalla(cavaller)) {
           cavaller.setMort(true);// Comprova si se n'ha anat de la pantalla
           if (enemics.indexOf(cavaller.getTipusCavaller()) != -1) {
             noTocat.play();
+            iter.remove();
             marcador.addEscapats();
-            comprovaSiSAcaba();
           }
         }
       }
 
     }
+    comprovaSiSAcaba();
   }
 
 
@@ -157,6 +184,10 @@ public class PantallaJoc implements Screen {
     return false;
   }
 
+  private Foc creaFoc(int x, int y) {
+    ParticleEffect e = joc.manager.get("foc.party", ParticleEffect.class);
+    return new Foc(e, x, y);
+  }
 
   private Cavaller creaCavaller(String tipusCavaller, int x, int y) {
     Texture imatge = joc.manager.get(tipusCavaller + ".png", Texture.class);
@@ -202,6 +233,8 @@ public class PantallaJoc implements Screen {
   @Override
   public void hide() {
     // hide?
+    cavallers.clear();
+    focs.clear();
 
   }
 

@@ -1,7 +1,5 @@
 package net.xaviersala.pantalles;
 
-import java.util.List;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Sound;
@@ -27,10 +25,6 @@ public class PantallaNextLevel extends Stage implements Screen {
   final PrincesetaGame joc;
   private Marcador marcador;
 
-  private Texture fons;
-  private Texture restart;
-  private Sound bravo;
-
   Level nivell;
 
   public PantallaNextLevel(PrincesetaGame app) {
@@ -48,24 +42,26 @@ public class PantallaNextLevel extends Stage implements Screen {
 
   private void crearPantalla() {
 
-    fons = joc.manager.get("fons.png", Texture.class);
-    restart = joc.manager.get("comensar.png", Texture.class);
-    bravo = joc.manager.get("bravo.wav", Sound.class);
+    Texture fons = joc.manager.get("fons.png", Texture.class);
+    Texture continua = joc.manager.get("continuar.png", Texture.class);
+    Texture victoria = joc.manager.get("victoria.png",Texture.class);
+    Sound bravo = joc.manager.get("bravo.wav", Sound.class);
 
 
     bravo.play();
-    final List<String> enemics = nivell.obtenirEnemics();
 
     Image bg = new Image(fons);
     bg.setFillParent(true);
     addActor(bg);
 
+    Table taulaBase = new Table().center().pad(10);
+    final Image victoriaImage = new Image(victoria);
+    taulaBase.add(victoriaImage);
+    taulaBase.setFillParent(true);
 
     Table taulaBotons  = new Table();
-    taulaBotons.setFillParent(true);
-    // taulaBotons.debug();
 
-    final Image botoStart = new Image(restart);
+    final Image botoStart = new Image(continua);
     botoStart.addListener(
         new InputListener() {
 
@@ -87,27 +83,31 @@ public class PantallaNextLevel extends Stage implements Screen {
 
         });
 
-    // taulaBotons.left();
-    // taulaBotons.add(explicacio).pad(120);
-    taulaBotons.row();
-    Label resultat = new Label("Mata els enemics\nde color:", joc.skin);
-    taulaBotons.add(resultat);
-    taulaBotons.row();
+    taulaBotons.row().colspan(2);
+    Label labelNivell = new Label("Nivell " + nivell.getNumLevel() + " :" , joc.skin);
+    taulaBotons.add(labelNivell);
 
-    int count = 0;
+    taulaBotons.row().colspan(2);
+    Label resultat = new Label("Mata els enemics de color:", joc.skin);
+    taulaBotons.add(resultat);
+    taulaBotons.row().height(100);
+
+    int i=0;
     for(String quin: nivell.obtenirEnemics()) {
       Label resultat2 = new Label(quin, joc.skin, "title-"+quin);
       taulaBotons.add(resultat2);
-      count ++;
-      if (count % 2 == 0) {
+      i++;
+      if (i%2==0) {
         taulaBotons.row();
       }
     }
 
     taulaBotons.row();
     taulaBotons.center();
-    taulaBotons.add(botoStart).colspan(enemics.size());
-    addActor(taulaBotons);
+    taulaBotons.add(botoStart).width(150).height(56);
+
+    taulaBase.add(taulaBotons);
+    addActor(taulaBase);
 
     taulaBotons.setSize(Gdx.graphics.getWidth() , Gdx.graphics.getHeight());
   }
@@ -131,6 +131,7 @@ public class PantallaNextLevel extends Stage implements Screen {
     getViewport().update(width, height);
   }
 
+  @Override
   public void pause() {
     // pausar
 
