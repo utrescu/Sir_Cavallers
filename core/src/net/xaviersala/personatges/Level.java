@@ -12,7 +12,7 @@ public class Level {
   List<String> tots;
 
   public static final List<String> SOLDATS = Arrays.asList(
-      "groc", "vermell", "blau", "negre", "verd", "taronja", "blanc"
+      "groc", "vermell", "blau", "negre", "verd", "taronja", "blanc", "lila"
       );
   public static final int CANVI_LEVEL = 25;
   public static final int INCREMENTA_ENEMICS = 4;

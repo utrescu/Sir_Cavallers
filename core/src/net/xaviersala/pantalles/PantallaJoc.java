@@ -11,8 +11,8 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
@@ -190,7 +190,7 @@ public class PantallaJoc implements Screen {
   }
 
   private Cavaller creaCavaller(String tipusCavaller, int x, int y) {
-    Texture imatge = joc.manager.get(tipusCavaller + ".png", Texture.class);
+    TextureAtlas imatge = joc.manager.get(tipusCavaller + ".atlas", TextureAtlas.class);
     return new Cavaller(imatge, tipusCavaller, x, y);
   }
 
@@ -203,7 +203,8 @@ public class PantallaJoc implements Screen {
         String quin = imatgesCavallers.get(MathUtils.random(0,numCavallers-1));
         int costat = MathUtils.random(0,1) * PrincesetaGame.AMPLEPANTALLA;
         int fila = (int) MathUtils.random(0,
-            pantalla.getHeight() - joc.manager.get(quin+".png",Texture.class).getHeight());
+            pantalla.getHeight() - 84);
+        // TODO: Obtenir altura de l'sprite en comptes de posar 84
 
         Cavaller c = creaCavaller(quin, costat, fila);
         cavallers.add(0, c);

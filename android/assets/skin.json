@@ -10,7 +10,8 @@ com.badlogic.gdx.graphics.Color: {
       white: { hex: "FFFFFF" },
       yellow: { hex: "FFFF00"},
       orange: { hex: "FF9A00"},
-      black: { hex: "000000" }
+      black: { hex: "000000" },
+      lila: { hex: "A020F0"}
  },
  com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle: {
       default: { font: normaltext, fontColor: black },
@@ -22,5 +23,6 @@ com.badlogic.gdx.graphics.Color: {
       title-blanc: { font: titletext, fontColor: white },
       title-negre: { font: titletext, fontColor: black },
       title-taronja: { font: titletext, fontColor: orange }
+      title-lila: { font: titletext, fontColor: lila }
  }
 }

@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.utils.Timer;
@@ -41,7 +42,7 @@ public class PantallaSplash extends Stage implements Screen {
     }
 
     for(String imatge: Level.SOLDATS) {
-      joc.manager.load(imatge + ".png", Texture.class);
+      joc.manager.load(imatge + ".atlas", TextureAtlas.class);
     }
 
     for(String so: SONS) {
