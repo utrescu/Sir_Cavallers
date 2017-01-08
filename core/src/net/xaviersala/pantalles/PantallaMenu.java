@@ -12,6 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.utils.I18NBundle;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 
@@ -33,8 +34,6 @@ public class PantallaMenu extends Stage implements Screen {
   private void crearMenu() {
 
     Texture fons = joc.manager.get("fons.png", Texture.class);
-    Texture start = joc.manager.get("comensar.png", Texture.class);
-    Texture sortir = joc.manager.get("sortir.png", Texture.class);
     Texture drac = joc.manager.get("drac.png", Texture.class);
     I18NBundle texte = joc.manager.get("i18n/sir", I18NBundle.class);
 
@@ -52,7 +51,9 @@ public class PantallaMenu extends Stage implements Screen {
 
     Table taulaBotons  = new Table();
 
-    final Image botoStart = new Image(start);
+    TextButton botoStart = new TextButton("Jugar!", joc.skin);
+
+    // final Image botoStart = new Image(start);
     botoStart.addListener(
         new InputListener() {
 
@@ -73,7 +74,7 @@ public class PantallaMenu extends Stage implements Screen {
 
         });
 
-    final Image botoSortir = new Image(sortir);
+    TextButton botoSortir = new TextButton(texte.get("sortir"), joc.skin);
     botoSortir.addListener(
         new InputListener() {
 

@@ -14,6 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.utils.I18NBundle;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 
@@ -38,8 +39,6 @@ public class PantallaGameOver extends Stage implements Screen {
 
     Texture derrota = joc.manager.get("derrota.png", Texture.class);
     Texture fons = joc.manager.get("fons.png", Texture.class);
-    Texture restart = joc.manager.get("comensar.png", Texture.class);
-    Texture sortir = joc.manager.get("sortir.png", Texture.class);
     Sound plora = joc.manager.get("sad.wav", Sound.class);
     I18NBundle texte = joc.manager.get("i18n/sir", I18NBundle.class);
 
@@ -60,7 +59,7 @@ public class PantallaGameOver extends Stage implements Screen {
     taulaBase.add(resultat);
     taulaBase.row().height(100);
 
-    final Image botoStart = new Image(restart);
+    TextButton botoStart = new TextButton(texte.get("jugar"), joc.skin);
     botoStart.addListener(new InputListener() {
 
       @Override
@@ -79,7 +78,7 @@ public class PantallaGameOver extends Stage implements Screen {
 
     });
 
-    final Image botoSortir = new Image(sortir);
+    TextButton botoSortir = new TextButton(texte.get("sortir"), joc.skin);
     botoSortir.addListener(new InputListener() {
 
       @Override

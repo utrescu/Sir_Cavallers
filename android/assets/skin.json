@@ -1,6 +1,7 @@
 {
 com.badlogic.gdx.graphics.g2d.BitmapFont: {
       normaltext: { file: berry32-black.fnt },
+      bototext: { file: symbola24.fnt },
       titletext: { file: berry64.fnt },
   },
 com.badlogic.gdx.graphics.Color: {
@@ -24,5 +25,13 @@ com.badlogic.gdx.graphics.Color: {
       title-negre: { font: titletext, fontColor: black },
       title-taronja: { font: titletext, fontColor: orange }
       title-lila: { font: titletext, fontColor: lila }
+ },
+ com.badlogic.gdx.scenes.scene2d.ui.Button$ButtonStyle: {
+      default: { up: boto-up, down: boto-down, checked: boto-down, disabled: boto-disabled },
+      transparent: { },
+ },
+ com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle: {
+      default: { up: boto-up, down: boto-down, checked: boto-down, disabled: boto-disabled, font: bototext, fontColor: yellow },
  }
+
 }
