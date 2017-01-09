@@ -28,7 +28,7 @@ public class Marcador {
    * Retorna el número de fallades total
    * @return escapats més errors
    */
-  public int fallades() {
+  public int getFallades() {
     return errors + escapats;
   }
 
