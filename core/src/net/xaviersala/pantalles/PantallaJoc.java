@@ -148,7 +148,7 @@ public class PantallaJoc implements Screen {
 
 
   private void comprovaSiSAcaba() {
-    if (marcador.fallades() == 10) {
+    if (marcador.getFallades() >= 10) {
       joc.pantallaGameOver.setMarcador(marcador);
       joc.setScreen(joc.pantallaGameOver);
     }

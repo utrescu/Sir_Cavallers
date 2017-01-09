@@ -19,6 +19,9 @@ public class PrincesetaGame extends Game {
 
   public static final int ALTPANTALLA = 480;
   public static final int AMPLEPANTALLA = 800;
+  public static final int BOTOHEIGHT = 50;
+  public static final int BOTOSORTIRWIDTH = 125;
+  public static final int BOTOSTARTWIDTH = 200;
 
   public SpriteBatch batch;
   public BitmapFont font;

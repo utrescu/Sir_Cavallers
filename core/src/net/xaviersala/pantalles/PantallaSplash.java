@@ -24,7 +24,7 @@ public class PantallaSplash extends Stage implements Screen {
   private boolean timerIsOn;
   private Texture splsh;
 
-  private static final String[] NOM_IMATGES = { "fons", "drac", "victoria", "derrota" };
+  private static final String[] NOM_IMATGES = { "fons", "fons-menu", "drac", "victoria", "derrota" };
   private static final String[] SONS = { "dispara", "foc", "tocat-no", "bravo", "sad" };
 
   public PantallaSplash(PrincesetaGame game) {

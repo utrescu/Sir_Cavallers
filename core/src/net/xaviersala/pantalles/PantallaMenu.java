@@ -33,7 +33,7 @@ public class PantallaMenu extends Stage implements Screen {
 
   private void crearMenu() {
 
-    Texture fons = joc.manager.get("fons.png", Texture.class);
+    Texture fons = joc.manager.get("fons-menu.png", Texture.class);
     Texture drac = joc.manager.get("drac.png", Texture.class);
     I18NBundle texte = joc.manager.get("sir", I18NBundle.class);
 
@@ -45,13 +45,14 @@ public class PantallaMenu extends Stage implements Screen {
 
 
     Table taulaBase = new Table().center().pad(10);
+
     final Image dracImage = new Image(drac);
     taulaBase.add(dracImage);
     taulaBase.setFillParent(true);
 
     Table taulaBotons  = new Table();
 
-    final TextButton botoStart = new TextButton("Jugar!", joc.skin);
+    final TextButton botoStart = new TextButton(texte.get("jugar"), joc.skin);
     botoStart.addListener(
         new InputListener() {
 
@@ -109,15 +110,21 @@ public class PantallaMenu extends Stage implements Screen {
       }
     }
 
-    taulaBotons.row();
-    taulaBotons.center();
-    taulaBotons.add(botoSortir).width(150).height(56);
-    taulaBotons.add(botoStart).width(150).height(56);
+    float pos23W = 2*Gdx.graphics.getWidth()/3;
+    float pos6W = Gdx.graphics.getWidth()/6;
+    float pos10H = Gdx.graphics.getHeight()/10;
 
-    taulaBase.add(taulaBotons);
+    taulaBase.add(taulaBotons).width(pos23W);
+    taulaBase.setSize(pos23W, Gdx.graphics.getHeight());
     addActor(taulaBase);
 
-    taulaBase.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+    botoStart.setSize(PrincesetaGame.BOTOSTARTWIDTH, PrincesetaGame.BOTOHEIGHT);
+    botoStart.setPosition(pos23W - PrincesetaGame.BOTOSTARTWIDTH/2, pos10H);
+    addActor(botoStart);
+
+    botoSortir.setSize(PrincesetaGame.BOTOSORTIRWIDTH, PrincesetaGame.BOTOHEIGHT);
+    botoSortir.setPosition(pos6W - PrincesetaGame.BOTOSORTIRWIDTH/2, pos10H);
+    addActor(botoSortir);
 
   }
 

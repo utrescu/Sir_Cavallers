@@ -44,7 +44,7 @@ public class PantallaNextLevel extends Stage implements Screen {
 
   private void crearPantalla() {
 
-    Texture fons = joc.manager.get("fons.png", Texture.class);
+    Texture fons = joc.manager.get("fons-menu.png", Texture.class);
     Texture victoria = joc.manager.get("victoria.png",Texture.class);
     Sound bravo = joc.manager.get("bravo.wav", Sound.class);
     I18NBundle texte = joc.manager.get("sir", I18NBundle.class);
@@ -57,6 +57,7 @@ public class PantallaNextLevel extends Stage implements Screen {
     addActor(bg);
 
     Table taulaBase = new Table().center().pad(10);
+
     final Image victoriaImage = new Image(victoria);
     taulaBase.add(victoriaImage);
     taulaBase.setFillParent(true);
@@ -104,14 +105,17 @@ public class PantallaNextLevel extends Stage implements Screen {
       }
     }
 
-    taulaBotons.row();
-    taulaBotons.center();
-    taulaBotons.add(botoStart).width(150).height(56);
-
     taulaBase.add(taulaBotons);
     addActor(taulaBase);
 
-    taulaBotons.setSize(Gdx.graphics.getWidth() , Gdx.graphics.getHeight());
+    // taulaBotons.setSize(Gdx.graphics.getWidth() , Gdx.graphics.getHeight());
+    float pos23W = 2*Gdx.graphics.getWidth()/3;
+    float pos10H = Gdx.graphics.getHeight()/10;
+
+    botoStart.setSize(PrincesetaGame.BOTOSTARTWIDTH, PrincesetaGame.BOTOHEIGHT);
+    botoStart.setPosition(pos23W - PrincesetaGame.BOTOSTARTWIDTH/2, pos10H);
+    addActor(botoStart);
+
   }
 
   @Override

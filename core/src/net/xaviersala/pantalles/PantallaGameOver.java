@@ -38,7 +38,7 @@ public class PantallaGameOver extends Stage implements Screen {
   private void crearPantalla() {
 
     Texture derrota = joc.manager.get("derrota.png", Texture.class);
-    Texture fons = joc.manager.get("fons.png", Texture.class);
+    Texture fons = joc.manager.get("fons-menu.png", Texture.class);
     Sound plora = joc.manager.get("sad.wav", Sound.class);
     I18NBundle texte = joc.manager.get("sir", I18NBundle.class);
 
@@ -48,15 +48,14 @@ public class PantallaGameOver extends Stage implements Screen {
     bg.setFillParent(true);
     addActor(bg);
 
-    Table taulaBase = new Table().center().pad(10);
+    Table taulaBase = new Table();
 
     final Image derrotaImage = new Image(derrota);
-    taulaBase.add(derrotaImage).colspan(2);
-    taulaBase.setFillParent(true);
+    taulaBase.add(derrotaImage);
 
-    taulaBase.row().colspan(2);
+    taulaBase.row();
     Label resultat = new Label(texte.format("resultat", marcador.getMorts()), joc.skin);
-    taulaBase.add(resultat);
+    taulaBase.add(resultat).expandX();
     taulaBase.row().height(100);
 
     final TextButton botoStart = new TextButton(texte.get("jugar"), joc.skin);
@@ -101,14 +100,23 @@ public class PantallaGameOver extends Stage implements Screen {
 
     // Record?
 
-    taulaBase.row();
-    taulaBase.center();
-    taulaBase.add(botoSortir).width(150).height(56);
-    taulaBase.add(botoStart).width(150).height(56);
+    float pos23W = 2*Gdx.graphics.getWidth()/3;
+    float pos6W = Gdx.graphics.getWidth()/6;
+    float pos10H = Gdx.graphics.getHeight()/10;
+    float pos4H = Gdx.graphics.getHeight()/4;
+
+    taulaBase.setPosition(Gdx.graphics.getWidth()/3, pos4H);
+    taulaBase.setSize(pos23W, 3 * pos4H);
 
     addActor(taulaBase);
 
-    taulaBase.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+    botoStart.setSize(PrincesetaGame.BOTOSTARTWIDTH, PrincesetaGame.BOTOHEIGHT);
+    botoStart.setPosition(pos23W - PrincesetaGame.BOTOSTARTWIDTH/2, pos10H);
+    addActor(botoStart);
+
+    botoSortir.setSize(PrincesetaGame.BOTOSORTIRWIDTH, PrincesetaGame.BOTOHEIGHT);
+    botoSortir.setPosition(pos6W - PrincesetaGame.BOTOSORTIRWIDTH/2, pos10H);
+    addActor(botoSortir);
 
   }
 
