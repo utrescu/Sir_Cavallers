@@ -22,6 +22,12 @@ import net.xaviersala.personatges.Marcador;
 
 public class PantallaMenu extends Stage implements Screen {
 
+  private static final float CENTRARDRAC = 0.25f;
+  private static final int PADDING = 10;
+  private static final int MARGEDRAC = 25;
+  private static final float DOSTERSOS = 0.66f;
+  private static final float UNTERS = 0.33f;
+
   final PrincesetaGame joc;
 
   public PantallaMenu(PrincesetaGame app) {
@@ -43,55 +49,53 @@ public class PantallaMenu extends Stage implements Screen {
     bg.setFillParent(true);
     addActor(bg);
 
-
-    Table taulaBase = new Table().center().pad(10);
+    Table taulaBase = new Table().center().pad(PADDING);
 
     final Image dracImage = new Image(drac);
-    taulaBase.add(dracImage);
-    taulaBase.setFillParent(true);
 
-    Table taulaBotons  = new Table();
+    dracImage.setPosition(MARGEDRAC, Gdx.graphics.getHeight() * CENTRARDRAC);
+    addActor(dracImage);
+
+    Table taulaBotons = new Table();
 
     final TextButton botoStart = new TextButton(texte.get("jugar"), joc.skin);
-    botoStart.addListener(
-        new InputListener() {
+    botoStart.addListener(new InputListener() {
 
-          @Override
-          public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-            botoStart.addAction(Actions.scaleTo(1.1f, 1.1f, .1f));
-            return true;
-          }
+      @Override
+      public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+        botoStart.addAction(Actions.scaleTo(1.1f, 1.1f, .1f));
+        return true;
+      }
 
-          @Override
-          public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-            botoStart.addAction(Actions.scaleTo(1f, 1f, .1f));
+      @Override
+      public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+        botoStart.addAction(Actions.scaleTo(1f, 1f, .1f));
 
-            Gdx.input.setInputProcessor(null);
-            joc.pantallaJoc.inicialitza(new Marcador(), nivell);
-            joc.setScreen(joc.pantallaJoc);
-          }
+        Gdx.input.setInputProcessor(null);
+        joc.pantallaJoc.inicialitza(new Marcador(), nivell);
+        joc.setScreen(joc.pantallaJoc);
+      }
 
-        });
+    });
 
     final TextButton botoSortir = new TextButton(texte.get("sortir"), joc.skin);
-    botoSortir.addListener(
-        new InputListener() {
+    botoSortir.addListener(new InputListener() {
 
-          @Override
-          public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-            botoSortir.addAction(Actions.scaleTo(1.1f, 1.1f, .1f));
-            return true;
-          }
+      @Override
+      public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+        botoSortir.addAction(Actions.scaleTo(1.1f, 1.1f, .1f));
+        return true;
+      }
 
-          @Override
-          public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-            botoSortir.addAction(Actions.scaleTo(1f, 1f, .1f));
+      @Override
+      public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+        botoSortir.addAction(Actions.scaleTo(1f, 1f, .1f));
 
-            Gdx.input.setInputProcessor(null);
-            Gdx.app.exit();
-          }
+        Gdx.input.setInputProcessor(null);
+        Gdx.app.exit();
+      }
 
-        }
+    }
 
     );
 
@@ -100,30 +104,32 @@ public class PantallaMenu extends Stage implements Screen {
     taulaBotons.add(resultat);
     taulaBotons.row().height(100);
 
-    int i=0;
-    for(String quin: nivell.obtenirEnemics()) {
-      Label resultat2 = new Label(texte.get(quin), joc.skin, "title-"+quin);
+    int i = 0;
+    for (String quin : nivell.obtenirEnemics()) {
+      Label resultat2 = new Label(texte.get(quin), joc.skin, "title-" + quin);
       taulaBotons.add(resultat2);
       i++;
-      if (i%2==0) {
+      if (i % 2 == 0) {
         taulaBotons.row();
       }
     }
 
-    float pos23W = 2*Gdx.graphics.getWidth()/3;
-    float pos6W = Gdx.graphics.getWidth()/6;
-    float pos10H = Gdx.graphics.getHeight()/10;
+    float pos23W = Gdx.graphics.getWidth() * DOSTERSOS;
+    float pos6W = Gdx.graphics.getWidth() / 6;
+    float pos10H = Gdx.graphics.getHeight() / 10;
+    float pos4H = Gdx.graphics.getHeight() / 4;
 
     taulaBase.add(taulaBotons).width(pos23W);
+    taulaBase.setPosition(Gdx.graphics.getWidth() * UNTERS, pos4H);
     taulaBase.setSize(pos23W, Gdx.graphics.getHeight());
     addActor(taulaBase);
 
     botoStart.setSize(PrincesetaGame.BOTOSTARTWIDTH, PrincesetaGame.BOTOHEIGHT);
-    botoStart.setPosition(pos23W - PrincesetaGame.BOTOSTARTWIDTH/2, pos10H);
+    botoStart.setPosition(pos23W - PrincesetaGame.BOTOSTARTWIDTH / 2, pos10H);
     addActor(botoStart);
 
     botoSortir.setSize(PrincesetaGame.BOTOSORTIRWIDTH, PrincesetaGame.BOTOHEIGHT);
-    botoSortir.setPosition(pos6W - PrincesetaGame.BOTOSORTIRWIDTH/2, pos10H);
+    botoSortir.setPosition(pos6W - PrincesetaGame.BOTOSORTIRWIDTH / 2, pos10H);
     addActor(botoSortir);
 
   }

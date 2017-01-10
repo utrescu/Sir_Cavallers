@@ -23,6 +23,10 @@ import net.xaviersala.personatges.Marcador;
 
 public class PantallaNextLevel extends Stage implements Screen {
 
+  private static final int ALTURAFILA = 50;
+  private static final int COLORSPERFILA = 3;
+
+  private static final float DOSTERSOS = 0.66f;
 
   final PrincesetaGame joc;
   private Marcador marcador;
@@ -45,10 +49,9 @@ public class PantallaNextLevel extends Stage implements Screen {
   private void crearPantalla() {
 
     Texture fons = joc.manager.get("fons-menu.png", Texture.class);
-    Texture victoria = joc.manager.get("victoria.png",Texture.class);
+    Texture victoria = joc.manager.get("victoria.png", Texture.class);
     Sound bravo = joc.manager.get("bravo.wav", Sound.class);
     I18NBundle texte = joc.manager.get("sir", I18NBundle.class);
-
 
     bravo.play();
 
@@ -62,45 +65,44 @@ public class PantallaNextLevel extends Stage implements Screen {
     taulaBase.add(victoriaImage);
     taulaBase.setFillParent(true);
 
-    Table taulaBotons  = new Table();
+    Table taulaBotons = new Table();
 
     final TextButton botoStart = new TextButton(texte.get("continuar"), joc.skin);
-    botoStart.addListener(
-        new InputListener() {
+    botoStart.addListener(new InputListener() {
 
-          @Override
-          public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-            botoStart.addAction(Actions.scaleTo(1.1f, 1.1f, .1f));
-            return true;
-          }
+      @Override
+      public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+        botoStart.addAction(Actions.scaleTo(1.1f, 1.1f, .1f));
+        return true;
+      }
 
-          @Override
-          public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-            botoStart.addAction(Actions.scaleTo(1f, 1f, .1f));
+      @Override
+      public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+        botoStart.addAction(Actions.scaleTo(1f, 1f, .1f));
 
-            Gdx.input.setInputProcessor(null);
-            joc.pantallaJoc.inicialitza(marcador, nivell);
-            joc.setScreen(joc.pantallaJoc);
+        Gdx.input.setInputProcessor(null);
+        joc.pantallaJoc.inicialitza(marcador, nivell);
+        joc.setScreen(joc.pantallaJoc);
 
-          }
+      }
 
-        });
+    });
 
-    taulaBotons.row().colspan(2);
+    taulaBotons.row().colspan(COLORSPERFILA);
     Label labelNivell = new Label(texte.format("nivell", nivell.getNumLevel()), joc.skin);
     taulaBotons.add(labelNivell);
 
-    taulaBotons.row().colspan(2);
+    taulaBotons.row().colspan(COLORSPERFILA);
     Label resultat = new Label(texte.get("objectiu"), joc.skin);
     taulaBotons.add(resultat);
-    taulaBotons.row().height(100);
+    taulaBotons.row().height(ALTURAFILA);
 
-    int i=0;
-    for(String quin: nivell.obtenirEnemics()) {
-      Label resultat2 = new Label(texte.get(quin), joc.skin, "title-"+quin);
+    int i = 0;
+    for (String quin : nivell.obtenirEnemics()) {
+      Label resultat2 = new Label(texte.get(quin), joc.skin, "title-" + quin);
       taulaBotons.add(resultat2);
       i++;
-      if (i%2==0) {
+      if (i % COLORSPERFILA == 0) {
         taulaBotons.row();
       }
     }
@@ -108,12 +110,11 @@ public class PantallaNextLevel extends Stage implements Screen {
     taulaBase.add(taulaBotons);
     addActor(taulaBase);
 
-    // taulaBotons.setSize(Gdx.graphics.getWidth() , Gdx.graphics.getHeight());
-    float pos23W = 2*Gdx.graphics.getWidth()/3;
-    float pos10H = Gdx.graphics.getHeight()/10;
+    float pos23W = Gdx.graphics.getWidth() * DOSTERSOS;
+    float pos10H = Gdx.graphics.getHeight() / 10;
 
     botoStart.setSize(PrincesetaGame.BOTOSTARTWIDTH, PrincesetaGame.BOTOHEIGHT);
-    botoStart.setPosition(pos23W - PrincesetaGame.BOTOSTARTWIDTH/2, pos10H);
+    botoStart.setPosition(pos23W - PrincesetaGame.BOTOSTARTWIDTH / 2, pos10H);
     addActor(botoStart);
 
   }
@@ -142,11 +143,13 @@ public class PantallaNextLevel extends Stage implements Screen {
     // pausar
 
   }
+
   @Override
   public void resume() {
     // restaurar
 
   }
+
   @Override
   public void hide() {
     // called when current screen changes from this to a different screen

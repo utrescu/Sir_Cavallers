@@ -37,6 +37,7 @@ public class PantallaGameOver extends Stage implements Screen {
 
   private void crearPantalla() {
 
+    int record = preferencies.getInteger("record", 0);
     Texture derrota = joc.manager.get("derrota.png", Texture.class);
     Texture fons = joc.manager.get("fons-menu.png", Texture.class);
     Sound plora = joc.manager.get("sad.wav", Sound.class);
@@ -98,24 +99,29 @@ public class PantallaGameOver extends Stage implements Screen {
 
     );
 
-    // Record?
+    float pos23W = 2 * Gdx.graphics.getWidth() / 3;
+    float pos6W = Gdx.graphics.getWidth() / 6;
+    float pos10H = Gdx.graphics.getHeight() / 10;
+    float pos4H = Gdx.graphics.getHeight() * 0.25f;
+    float pos13W = Gdx.graphics.getWidth() / 3;
 
-    float pos23W = 2*Gdx.graphics.getWidth()/3;
-    float pos6W = Gdx.graphics.getWidth()/6;
-    float pos10H = Gdx.graphics.getHeight()/10;
-    float pos4H = Gdx.graphics.getHeight()/4;
-
-    taulaBase.setPosition(Gdx.graphics.getWidth()/3, pos4H);
+    taulaBase.setPosition(pos13W, pos4H);
     taulaBase.setSize(pos23W, 3 * pos4H);
 
     addActor(taulaBase);
 
+    Label millor = new Label(texte.format("record", record), joc.skin, "super");
+    millor.setWrap(true);
+    millor.setWidth(pos13W);
+    millor.setPosition(25,  2 * pos4H);
+    addActor(millor);
+
     botoStart.setSize(PrincesetaGame.BOTOSTARTWIDTH, PrincesetaGame.BOTOHEIGHT);
-    botoStart.setPosition(pos23W - PrincesetaGame.BOTOSTARTWIDTH/2, pos10H);
+    botoStart.setPosition(pos23W - PrincesetaGame.BOTOSTARTWIDTH / 2, pos10H);
     addActor(botoStart);
 
     botoSortir.setSize(PrincesetaGame.BOTOSORTIRWIDTH, PrincesetaGame.BOTOHEIGHT);
-    botoSortir.setPosition(pos6W - PrincesetaGame.BOTOSORTIRWIDTH/2, pos10H);
+    botoSortir.setPosition(pos6W - PrincesetaGame.BOTOSORTIRWIDTH / 2, pos10H);
     addActor(botoSortir);
 
   }
@@ -161,11 +167,12 @@ public class PantallaGameOver extends Stage implements Screen {
   /**
    * Posa el marcador a la pantalla GameOver.
    *
-   * @param marcador2: marcador actual
+   * @param marcador2:
+   *          marcador actual
    */
   public void setMarcador(Marcador marcador2) {
-    marcador = marcador2;
     int record = preferencies.getInteger("record", 0);
+    marcador = marcador2;
     if (marcador.getMorts() > record) {
       preferencies.putInteger("record", marcador.getMorts());
       preferencies.flush();

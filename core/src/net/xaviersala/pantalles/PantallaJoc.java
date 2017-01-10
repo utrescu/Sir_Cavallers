@@ -11,6 +11,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.MathUtils;
@@ -36,6 +37,7 @@ public class PantallaJoc implements Screen {
   private List<String> enemics;
   private List<String> imatgesCavallers;
 
+  private Texture fons;
   private Sound dispara;
   private Sound tocat;
   private Sound noTocat;
@@ -69,6 +71,7 @@ public class PantallaJoc implements Screen {
     tocat = joc.manager.get("foc.wav",Sound.class);
     noTocat = joc.manager.get("tocat-no.wav",Sound.class);
     texte = joc.manager.get("sir", I18NBundle.class);
+    fons = joc.manager.get("fons.png",Texture.class);
   }
 
 
@@ -84,7 +87,7 @@ public class PantallaJoc implements Screen {
     joc.batch.setProjectionMatrix(camera.combined);
 
     joc.batch.begin();
-
+    joc.batch.draw(fons, 0f, 0f);
     for (Cavaller cavaller: cavallers) {
       cavaller.pinta(joc.batch);
     }
