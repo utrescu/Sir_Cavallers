@@ -13,9 +13,11 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.utils.I18NBundle;
 
 import net.xaviersala.PrincesetaGame;
 import net.xaviersala.personatges.Cavaller;
@@ -35,9 +37,11 @@ public class PantallaJoc implements Screen {
   private List<String> enemics;
   private List<String> imatgesCavallers;
 
+  private Texture fons;
   private Sound dispara;
   private Sound tocat;
   private Sound noTocat;
+  private I18NBundle texte;
 
   Marcador marcador;
   Preferences preferencies;
@@ -66,6 +70,8 @@ public class PantallaJoc implements Screen {
     dispara = joc.manager.get("dispara.wav",Sound.class);
     tocat = joc.manager.get("foc.wav",Sound.class);
     noTocat = joc.manager.get("tocat-no.wav",Sound.class);
+    texte = joc.manager.get("sir", I18NBundle.class);
+    fons = joc.manager.get("fons.png",Texture.class);
   }
 
 
@@ -81,7 +87,7 @@ public class PantallaJoc implements Screen {
     joc.batch.setProjectionMatrix(camera.combined);
 
     joc.batch.begin();
-
+    joc.batch.draw(fons, 0f, 0f);
     for (Cavaller cavaller: cavallers) {
       cavaller.pinta(joc.batch);
     }
@@ -90,8 +96,9 @@ public class PantallaJoc implements Screen {
       foc.pinta(joc.batch);
     }
 
-
-    joc.font.draw(joc.batch, marcador.getText() + " - Record:" + record, 100, PrincesetaGame.ALTPANTALLA);
+    CharSequence resultat = texte.format("marcador", marcador.getMorts(), marcador.getEscapats(),
+        marcador.getErrors(), record);
+    joc.font.draw(joc.batch, resultat, 100, PrincesetaGame.ALTPANTALLA);
     joc.batch.end();
 
 
@@ -144,7 +151,7 @@ public class PantallaJoc implements Screen {
 
 
   private void comprovaSiSAcaba() {
-    if (marcador.fallades() == 10) {
+    if (marcador.getFallades() >= 10) {
       joc.pantallaGameOver.setMarcador(marcador);
       joc.setScreen(joc.pantallaGameOver);
     }
@@ -190,7 +197,7 @@ public class PantallaJoc implements Screen {
   }
 
   private Cavaller creaCavaller(String tipusCavaller, int x, int y) {
-    Texture imatge = joc.manager.get(tipusCavaller + ".png", Texture.class);
+    TextureAtlas imatge = joc.manager.get(tipusCavaller + ".atlas", TextureAtlas.class);
     return new Cavaller(imatge, tipusCavaller, x, y);
   }
 
@@ -203,7 +210,8 @@ public class PantallaJoc implements Screen {
         String quin = imatgesCavallers.get(MathUtils.random(0,numCavallers-1));
         int costat = MathUtils.random(0,1) * PrincesetaGame.AMPLEPANTALLA;
         int fila = (int) MathUtils.random(0,
-            pantalla.getHeight() - joc.manager.get(quin+".png",Texture.class).getHeight());
+            pantalla.getHeight() - 84);
+        // TODO: Obtenir altura de l'sprite en comptes de posar 84
 
         Cavaller c = creaCavaller(quin, costat, fila);
         cavallers.add(0, c);

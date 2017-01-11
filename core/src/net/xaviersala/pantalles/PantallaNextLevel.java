@@ -13,6 +13,8 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.utils.I18NBundle;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 
 import net.xaviersala.PrincesetaGame;
@@ -21,6 +23,10 @@ import net.xaviersala.personatges.Marcador;
 
 public class PantallaNextLevel extends Stage implements Screen {
 
+  private static final int ALTURAFILA = 50;
+  private static final int COLORSPERFILA = 3;
+  private static final float DOSTERSOSAMPLE = PrincesetaGame.AMPLEPANTALLA * 0.66f;
+  private static final float UNDESEDALT = PrincesetaGame.ALTPANTALLA * 0.1f;
 
   final PrincesetaGame joc;
   private Marcador marcador;
@@ -42,11 +48,10 @@ public class PantallaNextLevel extends Stage implements Screen {
 
   private void crearPantalla() {
 
-    Texture fons = joc.manager.get("fons.png", Texture.class);
-    Texture continua = joc.manager.get("continuar.png", Texture.class);
-    Texture victoria = joc.manager.get("victoria.png",Texture.class);
+    Texture fons = joc.manager.get("fons-menu.png", Texture.class);
+    Texture victoria = joc.manager.get("victoria.png", Texture.class);
     Sound bravo = joc.manager.get("bravo.wav", Sound.class);
-
+    I18NBundle texte = joc.manager.get("sir", I18NBundle.class);
 
     bravo.play();
 
@@ -55,61 +60,60 @@ public class PantallaNextLevel extends Stage implements Screen {
     addActor(bg);
 
     Table taulaBase = new Table().center().pad(10);
+
     final Image victoriaImage = new Image(victoria);
     taulaBase.add(victoriaImage);
     taulaBase.setFillParent(true);
 
-    Table taulaBotons  = new Table();
+    Table taulaBotons = new Table();
 
-    final Image botoStart = new Image(continua);
-    botoStart.addListener(
-        new InputListener() {
+    final TextButton botoStart = new TextButton(texte.get("continuar"), joc.skin);
+    botoStart.addListener(new InputListener() {
 
-          @Override
-          public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-            botoStart.addAction(Actions.scaleTo(1.1f, 1.1f, .1f));
-            return true;
-          }
+      @Override
+      public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+        botoStart.addAction(Actions.scaleTo(1.1f, 1.1f, .1f));
+        return true;
+      }
 
-          @Override
-          public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-            botoStart.addAction(Actions.scaleTo(1f, 1f, .1f));
+      @Override
+      public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+        botoStart.addAction(Actions.scaleTo(1f, 1f, .1f));
 
-            Gdx.input.setInputProcessor(null);
-            joc.pantallaJoc.inicialitza(marcador, nivell);
-            joc.setScreen(joc.pantallaJoc);
+        Gdx.input.setInputProcessor(null);
+        joc.pantallaJoc.inicialitza(marcador, nivell);
+        joc.setScreen(joc.pantallaJoc);
 
-          }
+      }
 
-        });
+    });
 
-    taulaBotons.row().colspan(2);
-    Label labelNivell = new Label("Nivell " + nivell.getNumLevel() + " :" , joc.skin);
+    taulaBotons.row().colspan(COLORSPERFILA);
+    Label labelNivell = new Label(texte.format("nivell", nivell.getNumLevel()), joc.skin);
     taulaBotons.add(labelNivell);
 
-    taulaBotons.row().colspan(2);
-    Label resultat = new Label("Mata els enemics de color:", joc.skin);
+    taulaBotons.row().colspan(COLORSPERFILA);
+    Label resultat = new Label(texte.get("objectiu"), joc.skin);
     taulaBotons.add(resultat);
-    taulaBotons.row().height(100);
+    taulaBotons.row().height(ALTURAFILA);
 
-    int i=0;
-    for(String quin: nivell.obtenirEnemics()) {
-      Label resultat2 = new Label(quin, joc.skin, "title-"+quin);
+    int i = 0;
+    for (String quin : nivell.obtenirEnemics()) {
+      Label resultat2 = new Label(texte.get(quin), joc.skin, "title-" + quin);
       taulaBotons.add(resultat2);
       i++;
-      if (i%2==0) {
+      if (i % COLORSPERFILA == 0) {
         taulaBotons.row();
       }
     }
 
-    taulaBotons.row();
-    taulaBotons.center();
-    taulaBotons.add(botoStart).width(150).height(56);
-
     taulaBase.add(taulaBotons);
     addActor(taulaBase);
 
-    taulaBotons.setSize(Gdx.graphics.getWidth() , Gdx.graphics.getHeight());
+    botoStart.setSize(PrincesetaGame.BOTOSTARTWIDTH, PrincesetaGame.BOTOHEIGHT);
+    botoStart.setPosition(DOSTERSOSAMPLE - PrincesetaGame.BOTOSTARTWIDTH / 2, UNDESEDALT);
+    addActor(botoStart);
+
   }
 
   @Override
@@ -136,11 +140,13 @@ public class PantallaNextLevel extends Stage implements Screen {
     // pausar
 
   }
+
   @Override
   public void resume() {
     // restaurar
 
   }
+
   @Override
   public void hide() {
     // called when current screen changes from this to a different screen

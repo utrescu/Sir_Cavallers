@@ -14,12 +14,20 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.utils.I18NBundle;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 
 import net.xaviersala.PrincesetaGame;
 import net.xaviersala.personatges.Marcador;
 
 public class PantallaGameOver extends Stage implements Screen {
+
+  private static final float DOSTERSOSAMPLE = PrincesetaGame.AMPLEPANTALLA * 0.66f;
+  private static final float UNTERSAMPLE = PrincesetaGame.AMPLEPANTALLA * 0.33f;
+  private static final float UNQUARTDALT = PrincesetaGame.ALTPANTALLA * 0.25f;
+  private static final float UNDESEDALT = PrincesetaGame.ALTPANTALLA * 0.1f;
+  private static final float UNSISEAMPLE = PrincesetaGame.AMPLEPANTALLA * 0.16f;
 
   final PrincesetaGame joc;
   private Marcador marcador;
@@ -35,11 +43,11 @@ public class PantallaGameOver extends Stage implements Screen {
 
   private void crearPantalla() {
 
+    int record = preferencies.getInteger("record", 0);
     Texture derrota = joc.manager.get("derrota.png", Texture.class);
-    Texture fons = joc.manager.get("fons.png", Texture.class);
-    Texture restart = joc.manager.get("comensar.png", Texture.class);
-    Texture sortir = joc.manager.get("sortir.png", Texture.class);
+    Texture fons = joc.manager.get("fons-menu.png", Texture.class);
     Sound plora = joc.manager.get("sad.wav", Sound.class);
+    I18NBundle texte = joc.manager.get("sir", I18NBundle.class);
 
     plora.play();
 
@@ -47,18 +55,17 @@ public class PantallaGameOver extends Stage implements Screen {
     bg.setFillParent(true);
     addActor(bg);
 
-    Table taulaBase = new Table().center().pad(10);
+    Table taulaBase = new Table();
 
     final Image derrotaImage = new Image(derrota);
-    taulaBase.add(derrotaImage).colspan(2);
-    taulaBase.setFillParent(true);
+    taulaBase.add(derrotaImage);
 
-    taulaBase.row().colspan(2);
-    Label resultat = new Label(marcador.getResultat(), joc.skin);
-    taulaBase.add(resultat);
+    taulaBase.row();
+    Label resultat = new Label(texte.format("resultat", marcador.getMorts()), joc.skin);
+    taulaBase.add(resultat).expandX();
     taulaBase.row().height(100);
 
-    final Image botoStart = new Image(restart);
+    final TextButton botoStart = new TextButton(texte.get("jugar"), joc.skin);
     botoStart.addListener(new InputListener() {
 
       @Override
@@ -77,7 +84,7 @@ public class PantallaGameOver extends Stage implements Screen {
 
     });
 
-    final Image botoSortir = new Image(sortir);
+    final TextButton botoSortir = new TextButton(texte.get("sortir"), joc.skin);
     botoSortir.addListener(new InputListener() {
 
       @Override
@@ -98,16 +105,24 @@ public class PantallaGameOver extends Stage implements Screen {
 
     );
 
-    // Record?
-
-    taulaBase.row();
-    taulaBase.center();
-    taulaBase.add(botoSortir).width(150).height(56);
-    taulaBase.add(botoStart).width(150).height(56);
+    taulaBase.setPosition(UNTERSAMPLE, UNQUARTDALT);
+    taulaBase.setSize(DOSTERSOSAMPLE, 3 * UNQUARTDALT);
 
     addActor(taulaBase);
 
-    taulaBase.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+    Label millor = new Label(texte.format("record", record), joc.skin, "super");
+    millor.setWrap(true);
+    millor.setWidth(UNTERSAMPLE);
+    millor.setPosition(25, 2 * UNQUARTDALT);
+    addActor(millor);
+
+    botoStart.setSize(PrincesetaGame.BOTOSTARTWIDTH, PrincesetaGame.BOTOHEIGHT);
+    botoStart.setPosition(DOSTERSOSAMPLE - PrincesetaGame.BOTOSTARTWIDTH / 2, UNDESEDALT);
+    addActor(botoStart);
+
+    botoSortir.setSize(PrincesetaGame.BOTOSORTIRWIDTH, PrincesetaGame.BOTOHEIGHT);
+    botoSortir.setPosition(UNSISEAMPLE - PrincesetaGame.BOTOSORTIRWIDTH / 2, UNDESEDALT);
+    addActor(botoSortir);
 
   }
 
@@ -152,11 +167,12 @@ public class PantallaGameOver extends Stage implements Screen {
   /**
    * Posa el marcador a la pantalla GameOver.
    *
-   * @param marcador2: marcador actual
+   * @param marcador2:
+   *          marcador actual
    */
   public void setMarcador(Marcador marcador2) {
-    marcador = marcador2;
     int record = preferencies.getInteger("record", 0);
+    marcador = marcador2;
     if (marcador.getMorts() > record) {
       preferencies.putInteger("record", marcador.getMorts());
       preferencies.flush();

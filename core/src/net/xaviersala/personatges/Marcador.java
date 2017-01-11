@@ -28,16 +28,22 @@ public class Marcador {
    * Retorna el número de fallades total
    * @return escapats més errors
    */
-  public int fallades() {
+  public int getFallades() {
     return errors + escapats;
   }
 
-  public String getText() {
-    return "Morts: " + morts + " Escapats:" + escapats + " Errors: " + errors;
+  /**
+   * @return the escapats
+   */
+  public int getEscapats() {
+    return escapats;
   }
 
-  public CharSequence getResultat() {
-    return "Has matat " + morts + " enemics";
+  /**
+   * @return the errors
+   */
+  public int getErrors() {
+    return errors;
   }
 
   public int getMorts() {

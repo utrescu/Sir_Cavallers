@@ -1,7 +1,8 @@
 {
 com.badlogic.gdx.graphics.g2d.BitmapFont: {
       normaltext: { file: berry32-black.fnt },
-      titletext: { file: berry64.fnt },
+      bototext: { file: symbola24.fnt },
+      titletext: { file: berry45.fnt },
   },
 com.badlogic.gdx.graphics.Color: {
       red: { a: 1, b: 0, g: 0, r: 1 },
@@ -10,7 +11,8 @@ com.badlogic.gdx.graphics.Color: {
       white: { hex: "FFFFFF" },
       yellow: { hex: "FFFF00"},
       orange: { hex: "FF9A00"},
-      black: { hex: "000000" }
+      black: { hex: "000000" },
+      lila: { hex: "A020F0"}
  },
  com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle: {
       default: { font: normaltext, fontColor: black },
@@ -21,6 +23,16 @@ com.badlogic.gdx.graphics.Color: {
       title-groc: { font: titletext, fontColor: yellow },
       title-blanc: { font: titletext, fontColor: white },
       title-negre: { font: titletext, fontColor: black },
-      title-taronja: { font: titletext, fontColor: orange }
+      title-taronja: { font: titletext, fontColor: orange },
+      title-lila: { font: titletext, fontColor: lila },
+      super: { font: titletext, fontColor: yellow }
+ },
+ com.badlogic.gdx.scenes.scene2d.ui.Button$ButtonStyle: {
+      default: { up: boto-up, down: boto-down, checked: boto-down, disabled: boto-disabled },
+      transparent: { },
+ },
+ com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle: {
+      default: { up: boto-up, down: boto-down, checked: boto-down, disabled: boto-disabled, font: bototext, fontColor: yellow },
  }
+
 }

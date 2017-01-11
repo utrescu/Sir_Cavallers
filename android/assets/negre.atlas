@@ -1,0 +1,111 @@
+
+negre.png
+size: 1024,256
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+cavalle
+  rotate: false
+  xy: 2, 88
+  size: 101, 84
+  orig: 101, 84
+  offset: 0, 0
+  index: 0
+cavalle
+  rotate: false
+  xy: 2, 2
+  size: 101, 84
+  orig: 101, 84
+  offset: 0, 0
+  index: 1
+cavalle
+  rotate: false
+  xy: 105, 88
+  size: 101, 84
+  orig: 101, 84
+  offset: 0, 0
+  index: 2
+cavalle
+  rotate: false
+  xy: 105, 2
+  size: 101, 84
+  orig: 101, 84
+  offset: 0, 0
+  index: 3
+cavalle
+  rotate: false
+  xy: 208, 88
+  size: 101, 84
+  orig: 101, 84
+  offset: 0, 0
+  index: 4
+cavalle
+  rotate: false
+  xy: 208, 2
+  size: 101, 84
+  orig: 101, 84
+  offset: 0, 0
+  index: 5
+cavalle
+  rotate: false
+  xy: 311, 88
+  size: 101, 84
+  orig: 101, 84
+  offset: 0, 0
+  index: 6
+cavalle
+  rotate: false
+  xy: 311, 2
+  size: 101, 84
+  orig: 101, 84
+  offset: 0, 0
+  index: 7
+cavalle
+  rotate: false
+  xy: 414, 88
+  size: 101, 84
+  orig: 101, 84
+  offset: 0, 0
+  index: 8
+cavalle
+  rotate: false
+  xy: 414, 2
+  size: 101, 84
+  orig: 101, 84
+  offset: 0, 0
+  index: 9
+cavalle
+  rotate: false
+  xy: 517, 88
+  size: 101, 84
+  orig: 101, 84
+  offset: 0, 0
+  index: 10
+cavalle
+  rotate: false
+  xy: 517, 2
+  size: 101, 84
+  orig: 101, 84
+  offset: 0, 0
+  index: 11
+cavalle
+  rotate: false
+  xy: 620, 88
+  size: 101, 84
+  orig: 101, 84
+  offset: 0, 0
+  index: 12
+cavalle
+  rotate: false
+  xy: 620, 2
+  size: 101, 84
+  orig: 101, 84
+  offset: 0, 0
+  index: 13
+cavalle
+  rotate: false
+  xy: 723, 88
+  size: 101, 84
+  orig: 101, 84
+  offset: 0, 0
+  index: 14

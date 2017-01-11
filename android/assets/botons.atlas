@@ -1,0 +1,30 @@
+
+botons.png
+size: 256,64
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+boto-disabled
+  rotate: false
+  xy: 2, 2
+  size: 52, 52
+  split: 5, 6, 6, 6
+  orig: 52, 52
+  offset: 0, 0
+  index: -1
+boto-down
+  rotate: false
+  xy: 106, 7
+  size: 47, 47
+  split: 3, 3, 3, 3
+  orig: 47, 47
+  offset: 0, 0
+  index: -1
+boto-up
+  rotate: false
+  xy: 56, 6
+  size: 48, 48
+  split: 2, 3, 3, 3
+  orig: 48, 48
+  offset: 0, 0
+  index: -1

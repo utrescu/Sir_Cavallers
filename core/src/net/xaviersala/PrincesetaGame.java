@@ -6,6 +6,7 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 
 import net.xaviersala.pantalles.PantallaGameOver;
@@ -18,6 +19,9 @@ public class PrincesetaGame extends Game {
 
   public static final int ALTPANTALLA = 480;
   public static final int AMPLEPANTALLA = 800;
+  public static final int BOTOHEIGHT = 50;
+  public static final int BOTOSORTIRWIDTH = 125;
+  public static final int BOTOSTARTWIDTH = 200;
 
   public SpriteBatch batch;
   public BitmapFont font;
@@ -36,7 +40,11 @@ public class PrincesetaGame extends Game {
     batch = new SpriteBatch();
     font = new BitmapFont();
     manager = new AssetManager();
-    skin = new Skin(Gdx.files.internal("skin.json"));
+
+    manager.load("botons.atlas", TextureAtlas.class);
+    manager.finishLoading();
+    TextureAtlas atlas = manager.get("botons.atlas", TextureAtlas.class);
+    skin = new Skin(Gdx.files.internal("skin.json"), atlas);
 
     pantallaMenu = new PantallaMenu(this);
     pantallaNext = new PantallaNextLevel(this);

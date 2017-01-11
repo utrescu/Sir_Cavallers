@@ -1,13 +1,17 @@
 package net.xaviersala.personatges;
 
-import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 
 public class Cavaller implements Comparable<Cavaller> {
   Sprite imatge;
+  TextureAtlas textureAtlas;
+  Animation animation;
 
   int velocitat;
   float alpha;
@@ -18,10 +22,14 @@ public class Cavaller implements Comparable<Cavaller> {
 
   boolean esMort;
   private boolean remove;
+  private float elapsedTime = 0f;
 
-  public Cavaller(Texture imatge, String tipusCavaller, float x, float y) {
+  public Cavaller(TextureAtlas imatge, String tipusCavaller, float x, float y) {
 
-    this.imatge = new Sprite(imatge);
+    textureAtlas = imatge;
+    animation = new Animation(1f/33f, textureAtlas.getRegions());
+
+    this.imatge = new Sprite(animation.getKeyFrame(0));
     this.tipusCavaller = tipusCavaller;
 
     this.imatge.setPosition(x, y);
@@ -33,7 +41,6 @@ public class Cavaller implements Comparable<Cavaller> {
       angle = 180;
     } else {
       angle = 0;
-      this.imatge.flip(true, false);
     }
 
     this.imatge.setOriginCenter();
@@ -65,7 +72,9 @@ public class Cavaller implements Comparable<Cavaller> {
   public void mou(float delta) {
     float v = velocitat * delta;
     imatge.translate(-MathUtils.cosDeg(angle) * v, -MathUtils.sinDeg(angle) * v);
-    // Canviar la rotació?
+    // Canviar l'animació?
+    elapsedTime += Gdx.graphics.getDeltaTime();
+    imatge.setRegion(animation.getKeyFrame(elapsedTime, true));
   }
 
   public void pinta(SpriteBatch batch) {
@@ -75,6 +84,9 @@ public class Cavaller implements Comparable<Cavaller> {
         alpha = 0f;
         remove = true;
       }
+    }
+    if (angle < 1) {
+      imatge.flip(true, false);
     }
     imatge.draw(batch, alpha);
   }
