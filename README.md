@@ -7,6 +7,12 @@ Es tracta d'eliminar els cavallers del color especificat clicant (o prement-hi a
 
 ![accio](README/accio.png)
 
+![accio2](README/accio2.png)
+
+![level](README/level.png)
+
+![derrota](README/derrota.png)
+
 
 Generació d'executables
 -------------------------
