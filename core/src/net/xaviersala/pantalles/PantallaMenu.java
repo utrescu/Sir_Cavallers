@@ -22,10 +22,12 @@ import net.xaviersala.personatges.Marcador;
 
 public class PantallaMenu extends Stage implements Screen {
 
-  private static final float CENTRARDRAC = 0.25f;
+  private static final float UNSISEAMPLE = PrincesetaGame.AMPLEPANTALLA * 0.16f;
+  private static final float UNDESEDALT = PrincesetaGame.ALTPANTALLA * 0.1f;
+  private static final float UNQUARTDALT = PrincesetaGame.ALTPANTALLA * 0.25f;
   private static final int PADDING = 10;
   private static final int MARGEDRAC = 25;
-  private static final float DOSTERSOS = 0.66f;
+  private static final float DOSTERSOSAMPLE = PrincesetaGame.AMPLEPANTALLA * 0.66f;
   private static final float UNTERS = 0.33f;
 
   final PrincesetaGame joc;
@@ -50,11 +52,6 @@ public class PantallaMenu extends Stage implements Screen {
     addActor(bg);
 
     Table taulaBase = new Table().center().pad(PADDING);
-
-    final Image dracImage = new Image(drac);
-
-    dracImage.setPosition(MARGEDRAC, Gdx.graphics.getHeight() * CENTRARDRAC);
-    addActor(dracImage);
 
     Table taulaBotons = new Table();
 
@@ -114,22 +111,22 @@ public class PantallaMenu extends Stage implements Screen {
       }
     }
 
-    float pos23W = Gdx.graphics.getWidth() * DOSTERSOS;
-    float pos6W = Gdx.graphics.getWidth() / 6;
-    float pos10H = Gdx.graphics.getHeight() / 10;
-    float pos4H = Gdx.graphics.getHeight() / 4;
+    final Image dracImage = new Image(drac);
 
-    taulaBase.add(taulaBotons).width(pos23W);
-    taulaBase.setPosition(Gdx.graphics.getWidth() * UNTERS, pos4H);
-    taulaBase.setSize(pos23W, Gdx.graphics.getHeight());
+    dracImage.setPosition(MARGEDRAC, UNQUARTDALT);
+    addActor(dracImage);
+
+    taulaBase.add(taulaBotons).width(DOSTERSOSAMPLE);
+    taulaBase.setPosition(PrincesetaGame.AMPLEPANTALLA * UNTERS, UNQUARTDALT);
+    taulaBase.setSize(DOSTERSOSAMPLE, PrincesetaGame.ALTPANTALLA);
     addActor(taulaBase);
 
     botoStart.setSize(PrincesetaGame.BOTOSTARTWIDTH, PrincesetaGame.BOTOHEIGHT);
-    botoStart.setPosition(pos23W - PrincesetaGame.BOTOSTARTWIDTH / 2, pos10H);
+    botoStart.setPosition(DOSTERSOSAMPLE - PrincesetaGame.BOTOSTARTWIDTH / 2, UNDESEDALT);
     addActor(botoStart);
 
     botoSortir.setSize(PrincesetaGame.BOTOSORTIRWIDTH, PrincesetaGame.BOTOHEIGHT);
-    botoSortir.setPosition(pos6W - PrincesetaGame.BOTOSORTIRWIDTH / 2, pos10H);
+    botoSortir.setPosition(UNSISEAMPLE - PrincesetaGame.BOTOSORTIRWIDTH / 2, UNDESEDALT);
     addActor(botoSortir);
 
   }

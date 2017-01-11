@@ -23,6 +23,12 @@ import net.xaviersala.personatges.Marcador;
 
 public class PantallaGameOver extends Stage implements Screen {
 
+  private static final float DOSTERSOSAMPLE = PrincesetaGame.AMPLEPANTALLA * 0.66f;
+  private static final float UNTERSAMPLE = PrincesetaGame.AMPLEPANTALLA * 0.33f;
+  private static final float UNQUARTDALT = PrincesetaGame.ALTPANTALLA * 0.25f;
+  private static final float UNDESEDALT = PrincesetaGame.ALTPANTALLA * 0.1f;
+  private static final float UNSISEAMPLE = PrincesetaGame.AMPLEPANTALLA * 0.16f;
+
   final PrincesetaGame joc;
   private Marcador marcador;
   Preferences preferencies;
@@ -99,29 +105,23 @@ public class PantallaGameOver extends Stage implements Screen {
 
     );
 
-    float pos23W = 2 * Gdx.graphics.getWidth() / 3;
-    float pos6W = Gdx.graphics.getWidth() / 6;
-    float pos10H = Gdx.graphics.getHeight() / 10;
-    float pos4H = Gdx.graphics.getHeight() * 0.25f;
-    float pos13W = Gdx.graphics.getWidth() / 3;
-
-    taulaBase.setPosition(pos13W, pos4H);
-    taulaBase.setSize(pos23W, 3 * pos4H);
+    taulaBase.setPosition(UNTERSAMPLE, UNQUARTDALT);
+    taulaBase.setSize(DOSTERSOSAMPLE, 3 * UNQUARTDALT);
 
     addActor(taulaBase);
 
     Label millor = new Label(texte.format("record", record), joc.skin, "super");
     millor.setWrap(true);
-    millor.setWidth(pos13W);
-    millor.setPosition(25,  2 * pos4H);
+    millor.setWidth(UNTERSAMPLE);
+    millor.setPosition(25, 2 * UNQUARTDALT);
     addActor(millor);
 
     botoStart.setSize(PrincesetaGame.BOTOSTARTWIDTH, PrincesetaGame.BOTOHEIGHT);
-    botoStart.setPosition(pos23W - PrincesetaGame.BOTOSTARTWIDTH / 2, pos10H);
+    botoStart.setPosition(DOSTERSOSAMPLE - PrincesetaGame.BOTOSTARTWIDTH / 2, UNDESEDALT);
     addActor(botoStart);
 
     botoSortir.setSize(PrincesetaGame.BOTOSORTIRWIDTH, PrincesetaGame.BOTOHEIGHT);
-    botoSortir.setPosition(pos6W - PrincesetaGame.BOTOSORTIRWIDTH / 2, pos10H);
+    botoSortir.setPosition(UNSISEAMPLE - PrincesetaGame.BOTOSORTIRWIDTH / 2, UNDESEDALT);
     addActor(botoSortir);
 
   }

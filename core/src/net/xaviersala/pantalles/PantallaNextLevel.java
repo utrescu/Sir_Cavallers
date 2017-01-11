@@ -25,8 +25,8 @@ public class PantallaNextLevel extends Stage implements Screen {
 
   private static final int ALTURAFILA = 50;
   private static final int COLORSPERFILA = 3;
-
-  private static final float DOSTERSOS = 0.66f;
+  private static final float DOSTERSOSAMPLE = PrincesetaGame.AMPLEPANTALLA * 0.66f;
+  private static final float UNDESEDALT = PrincesetaGame.ALTPANTALLA * 0.1f;
 
   final PrincesetaGame joc;
   private Marcador marcador;
@@ -110,11 +110,8 @@ public class PantallaNextLevel extends Stage implements Screen {
     taulaBase.add(taulaBotons);
     addActor(taulaBase);
 
-    float pos23W = Gdx.graphics.getWidth() * DOSTERSOS;
-    float pos10H = Gdx.graphics.getHeight() / 10;
-
     botoStart.setSize(PrincesetaGame.BOTOSTARTWIDTH, PrincesetaGame.BOTOHEIGHT);
-    botoStart.setPosition(pos23W - PrincesetaGame.BOTOSTARTWIDTH / 2, pos10H);
+    botoStart.setPosition(DOSTERSOSAMPLE - PrincesetaGame.BOTOSTARTWIDTH / 2, UNDESEDALT);
     addActor(botoStart);
 
   }
